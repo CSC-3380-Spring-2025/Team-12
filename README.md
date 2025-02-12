@@ -1,10 +1,10 @@
-# [Name of the Project] : [Team Number]
+# Ghost Town Guessr : Team #12
 # Members
-Project Manager: [Name] ([GitHub Name])\
-Communications Lead: [Name] ([GitHub Name])\
-Git Master: [Name] ([GitHub Name])\
-Design Lead: [Name] ([GitHub Name])\
-Quality Assurance Tester: [Name] ([GitHub Name])
+Project Manager: Hannah Lowery (HannahLowery)\
+Communications Lead: Adam Brown (adambrown00)\
+Git Master: Benny Ly (bly3)\
+Design Lead: Truong Nguyen (TruongNguyen0607)\
+Quality Assurance Tester: Layla Jones (ljon188)
 
 # About Our Software
 
