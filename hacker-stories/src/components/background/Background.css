@@ -1,0 +1,23 @@
+.background {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 1s ease-in-out; /* Smooth fade effect */
+  }
+  
+  .background.fade-out {
+    opacity: 0; /* Fade out the current video */
+  }
+  
+  .background.fade-in {
+    opacity: 1; /* Fade in the next video */
+  }
+  
+  .background.hidden {
+    opacity: 0; /* Hide the next video initially */
+  }
