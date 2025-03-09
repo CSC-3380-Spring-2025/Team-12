@@ -1,11 +1,22 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./hero.css";
 
-const Hero = ({ heroData, heroCount }) => {
-  const [displayText1, setDisplayText1] = useState("");
-  const [displayText2, setDisplayText2] = useState("");
-  const [typingIndex, setTypingIndex] = useState(0);
-  const audioRef = useRef(null); // Reference to the audio element
+interface HeroData {
+  text1: string;
+  text2: string;
+}
+
+interface HeroProps {
+  heroData: HeroData;
+  heroCount: number;
+  setHeroCount: (count: number) => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
+  const [displayText1, setDisplayText1] = useState<string>("");
+  const [displayText2, setDisplayText2] = useState<string>("");
+  const [typingIndex, setTypingIndex] = useState<number>(0);
+  const audioRef = useRef<HTMLAudioElement>(null); // Reference to the audio element
 
   // Simulate typing effect
   useEffect(() => {

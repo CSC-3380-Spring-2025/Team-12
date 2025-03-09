@@ -1,18 +1,23 @@
-import { useState, useEffect } from "react";
-import Background from "./components/background/background";
+import React, { useState } from "react"; 
+import Background from "./components/background/Background";
 import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/hero/hero";
+import Hero from "./components/hero/Hero";
+
+interface HeroData {
+  text1: string;
+  text2: string;
+}
 
 function App() {
   // The text that will be animated
-  const heroData = [
+  const heroData: HeroData[] = [
     { text1: "Explore the", text2: "unexplored" },
     { text1: "Chat and", text2: "make new friends" },
     { text1: "compete and", text2: "fight for the top" },
   ];
 
   // To transition the image and text
-  const [heroCount, setHeroCount] = useState(0);
+  const [heroCount, setHeroCount] = useState<number>(0);
 
   // Function to handle video end
   const handleVideoEnd = () => {

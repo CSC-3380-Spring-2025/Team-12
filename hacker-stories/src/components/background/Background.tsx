@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types"; // Import prop-types
+import React, { useEffect, useState, useRef } from "react";
 import './Background.css';
-import video1 from '../../assets/203-135848350_small.mp4';
-import video2 from '../../assets/76005-557381111_small.mp4';
-import video3 from '../../assets/108415-680697565_small.mp4';
+import video1 from '@assets/203-135848350_small.mp4'; // Using alias
+import video2 from '@assets/76005-557381111_small.mp4'; // Using alias
+import video3 from '@assets/108415-680697565_small.mp4'; // Using alias
 
-const Background = ({ heroCount = 0, onVideoEnd }) => {
-  const [fadeOut, setFadeOut] = useState(false); // State for fade-out effect
-  const currentVideoRef = React.useRef(null); // Reference to the current video
-  const nextVideoRef = React.useRef(null); // Reference to the next video
+interface BackgroundProps {
+  heroCount: number;
+  onVideoEnd: () => void;
+}
+
+const Background: React.FC<BackgroundProps> = ({ heroCount, onVideoEnd }) => {
+  const [fadeOut, setFadeOut] = useState<boolean>(false); // State for fade-out effect
+  const currentVideoRef = useRef<HTMLVideoElement>(null); // Reference to the current video
+  const nextVideoRef = useRef<HTMLVideoElement>(null); // Reference to the next video
 
   // List of videos
-  const videos = [video1, video2, video3];
-  const currentVideo = videos[heroCount];
-  const nextVideo = videos[(heroCount + 1) % videos.length];
+  const videos: string[] = [video1, video2, video3];
+  const currentVideo: string = videos[heroCount];
+  const nextVideo: string = videos[(heroCount + 1) % videos.length];
 
   // Handle video end event
   const handleVideoEnd = () => {
@@ -21,7 +25,7 @@ const Background = ({ heroCount = 0, onVideoEnd }) => {
     setTimeout(() => {
       onVideoEnd(); // Transition to the next video after fade-out
       setFadeOut(false); // Reset fade-out state
-    }, );
+    }); // Adjust the delay to match the fade-out duration
   };
 
   // Listen for the current video's end event
@@ -72,12 +76,6 @@ const Background = ({ heroCount = 0, onVideoEnd }) => {
       </video>
     </>
   );
-};
-
-// Add prop-type validation
-Background.propTypes = {
-  heroCount: PropTypes.number.isRequired, // heroCount must be a number and is required
-  onVideoEnd: PropTypes.func.isRequired, // onVideoEnd must be a function and is required
 };
 
 export default Background;
