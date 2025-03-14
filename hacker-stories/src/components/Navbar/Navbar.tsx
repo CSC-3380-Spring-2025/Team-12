@@ -1,6 +1,7 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./Navbar.css";
 import LoginForm from "../LoginForm/LoginForm";
+import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -19,11 +20,11 @@ const Navbar: React.FC = () => {
     console.log("Explore clicked");
     // Add functionality here (e.g., navigate to the explore page)
   };
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const handleLoginClick = () => {
     console.log("Login clicked");
     setIsLoginOpen(true);
-    // Add functionality here (e.g., open a login modal)
   };
 
   const handleCloseLogin = () => {
@@ -32,7 +33,11 @@ const Navbar: React.FC = () => {
 
   const handleRegisterClick = () => {
     console.log("Register clicked");
-    // Add functionality here (e.g., open a registration modal)
+    setIsRegisterOpen(true);
+  };
+
+  const handleCloseRegister = () => {
+    setIsRegisterOpen(false);
   };
 
   return (
@@ -49,7 +54,12 @@ const Navbar: React.FC = () => {
           Register
         </li>
       </ul>
+
+      {/* Render LoginForm when isLoginOpen is true */}
       <LoginForm isOpen={isLoginOpen} onClose={handleCloseLogin} />
+
+      {/* Render RegistrationForm when isRegisterOpen is true */}
+      <RegistrationForm isOpen={isRegisterOpen} onClose={handleCloseRegister} />
     </div>
   );
 };

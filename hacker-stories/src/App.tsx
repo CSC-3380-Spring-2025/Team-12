@@ -26,7 +26,7 @@ function App() {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
       <Hero
         heroData={heroData[heroCount]}
