@@ -12,6 +12,9 @@
 
 .hero-play-text {
     display: flex;
+    position: fixed;
+    bottom: 50px;
+    left: 47%;
     justify-content: center; /* Center the text horizontally */
     align-items: center; /* Center the text vertically */
     width: fit-content; /* Adjust width to fit content */
