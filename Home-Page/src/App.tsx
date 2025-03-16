@@ -1,7 +1,7 @@
 import React, { useState } from "react"; 
-import Background from "./components/background/Background";
-import Navbar from "./components/Navbar/Navbar";
-import Hero from "./components/hero/Hero";
+import Background from "./HomepageComponents/background/Background";
+import Navbar from "./HomepageComponents/Navbar/Navbar";
+import Hero from "./HomepageComponents/hero/Hero";
 
 interface HeroData {
   text1: string;
