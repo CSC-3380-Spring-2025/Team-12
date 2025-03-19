@@ -3,6 +3,7 @@ import Background from "./HomepageComponents/background/Background";
 import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
 
+
 interface HeroData {
   text1: string;
   text2: string;

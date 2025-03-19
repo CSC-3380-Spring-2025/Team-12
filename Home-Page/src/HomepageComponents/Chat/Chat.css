@@ -1,0 +1,97 @@
+/* Chat.css */
+
+/* Modal styling */
+.chat-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);  /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .chat-content {
+    background-color: #fff;
+    width: 400px;
+    height: 500px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+  .close-x {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    color: red;  /* Red color for the close icon */
+    cursor: pointer;
+  }
+  
+  .close-x:hover {
+    color: darkred; /* Change color when hovered */
+  }
+  
+  .chat-welcome-message {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 10px;
+  }
+  
+  .chat-window {
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    height: 350px; /* Make it scrollable */
+  }
+  
+  .chat-message {
+    margin-bottom: 10px;
+  }
+  
+  .message-timestamp {
+    font-size: 12px;
+    color: #888;
+    margin-right: 10px;
+  }
+  
+  .message-text {
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .chat-input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .chat-input {
+    width: 80%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .chat-send-btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    margin-left: 10px;
+    background-color: #070707;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .chat-send-btn:hover {
+    background-color: #105cea;
+  }
+  
