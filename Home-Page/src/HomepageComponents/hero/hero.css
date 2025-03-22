@@ -5,7 +5,7 @@
 
 .hero-text {
   color: white;
-  font-size: 10vw; /* Use viewport width for responsive text */
+  font-size: clamp(50px, 10vw, 110px); /* Clamp used to adjust maximum font size */
   font-weight: 500;
   line-height: 1.1; /* Adjust line-height for better readability */
   position: fixed; /* Fixed position so it doesn't move */
