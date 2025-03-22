@@ -7,9 +7,9 @@ interface LeaderboardProps {
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null; // Don't render if the modal isn't open
+  if (!isOpen) return null;
 
-  // Sample leaderboard data (you can replace this with dynamic data later)
+  // Sample leaderboard data (can replace this with dynamic data later)
   const leaderboardData = [
     { username: 'Player1', rank: 1, score: 1500 },
     { username: 'Player2', rank: 2, score: 1300 },
@@ -33,9 +33,6 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ isOpen, onClose }) => {
               <div className="rank">{player.rank <= 3 ? (
                 <span className={`rank-medal rank-${player.rank}`}>{player.rank === 1 ? '🥇' : player.rank === 2 ? '🥈' : '🥉'}</span>
               ) : player.rank}</div>
-
-              {/* Removed avatar code */}
-              {/* You can add back later when you're ready for avatars */}
 
               <div className="username">{player.username}</div>
               <div className="score">{player.score} points</div>

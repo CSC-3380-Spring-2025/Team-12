@@ -55,37 +55,37 @@ h2 {
     margin-bottom: 15px;
     padding: 10px;
     border-bottom: 1px solid #ccc;
-    width: 100%; /* Ensure the item takes the full width */
+    width: 100%; 
 }
 
 .leaderboard-item .rank {
     font-size: 18px;
     font-weight: bold;
-    min-width: 40px; /* Ensure rank column has a minimum width */
+    min-width: 40px; 
     display: flex;
     flex-direction: column;
-    align-items: center; /* Align rank number and medal vertically */
+    align-items: center; 
     color: #333;
 }
 
 .leaderboard-item .username {
-    flex-grow: 1; /* Let this take up remaining space */
+    flex-grow: 1; 
     margin-left: 10px;
     font-size: 16px;
     font-weight: normal;
-    color: #333; /* Dark color for the username */
+    color: #333; 
 }
 
 .leaderboard-item .score {
     font-weight: bold;
-    color: #ff6600ee; /* Lighter color for the score */
-    min-width: 60px; /* Ensure score column has a minimum width */
+    color: #ff6600ee; 
+    min-width: 60px; 
 }
 
 .rank-medal {
     display: block;
     font-size: 24px;
-    margin-bottom: 5px; /* Space between medal and rank number */
+    margin-bottom: 5px; 
 }
 
 .rank-1 {
