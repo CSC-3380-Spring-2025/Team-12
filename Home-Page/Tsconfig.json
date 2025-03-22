@@ -3,7 +3,7 @@
       "target": "es5", // Target JavaScript version
       "module": "esnext", // Use ES modules
       "lib": ["dom", "esnext"], // Include DOM and ESnext libraries
-      "jsx": "react", // Enable JSX for React
+      "jsx": "react-jsx", // Enable JSX for React
       "strict": true, // Enable strict type-checking
       "esModuleInterop": true, // Allow default imports for CommonJS modules
       "skipLibCheck": true, // Skip type-checking of declaration files

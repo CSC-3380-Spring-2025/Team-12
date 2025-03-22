@@ -38,3 +38,8 @@
   .hero-play-text:active {
     transform: scale(0.95); /* Slightly shrink the text on click */
   }
+
+  .no-underline{
+    text-decoration: none;
+    color: black;
+  }
