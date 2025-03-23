@@ -1,8 +1,8 @@
-import React, { useState } from "react"; 
+import React, { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Background from "./HomepageComponents/background/Background";
 import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
-
 
 interface HeroData {
   text1: string;
@@ -26,15 +26,26 @@ function App() {
   };
 
   return (
-    <div>
-      <Navbar/>
-      <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
-      <Hero
-        heroData={heroData[heroCount]}
-        heroCount={heroCount}
-        setHeroCount={setHeroCount}
-      />
-    </div>
+    <Router>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
+                <Hero
+                  heroData={heroData[heroCount]}
+                  heroCount={heroCount}
+                  setHeroCount={setHeroCount}
+                />
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
