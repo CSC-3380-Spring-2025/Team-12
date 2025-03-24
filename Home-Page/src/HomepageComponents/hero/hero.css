@@ -1,6 +1,8 @@
 .hero{
     margin: 0px 120px;
     margin-top: 270px;
+    position: relative;
+    z-index: 1;
 }
 
 .hero-text {
