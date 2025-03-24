@@ -58,8 +58,8 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
   return (
     <div className="hero">
       <div className="hero-text">
-        <p>{displayText1}</p>
-        <p>{displayText2}</p>
+        <span>{displayText1}</span>
+        <span>{displayText2}</span>
       </div>
 
       {/* Clickable "Play" text */}

@@ -12,9 +12,9 @@ interface HeroData {
 function HomePage() {
   // The text that will be animated
   const heroData: HeroData[] = [
-    { text1: "Explore the", text2: "unexplored" },
-    { text1: "Chat and", text2: "make new friends" },
-    { text1: "compete and", text2: "fight for the top" },
+    { text1: "Explore the ", text2: "unexplored" },
+    { text1: "Chat and ", text2: "make new friends" },
+    { text1: "Compete and ", text2: "fight for the top" },
   ];
 
   // To transition the image and text
