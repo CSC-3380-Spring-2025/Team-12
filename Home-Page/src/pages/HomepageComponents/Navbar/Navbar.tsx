@@ -4,6 +4,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
 import Chat from "../Chat/Chat";
 import Explore from "../Explore/Explore";
+import {Link} from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -14,6 +15,7 @@ const Navbar: React.FC = () => {
   const handleLeaderboardClick = () => {
     console.log("Leaderboard clicked");
     // Add functionality here (e.g., navigate to the leaderboard page)
+
   };
 
   const handleChatClick = () => {
@@ -51,7 +53,15 @@ const Navbar: React.FC = () => {
     <div className="nav">
       <div className="nav-logo">GeoGuessr</div>
       <ul className="nav-menu">
-        <li onClick={handleLeaderboardClick}>Leaderboard</li>
+      <li>
+          <Link 
+            to="/leaderboard" 
+            onClick={handleLeaderboardClick} 
+            className="nav"
+          >
+            Leaderboard
+          </Link>
+        </li>
         <li onClick={handleChatClick}>Chat</li>
         <li onClick={handleExploreClick}>Explore</li>
         <li className="nav-sign" onClick={handleLoginClick}>Login</li>

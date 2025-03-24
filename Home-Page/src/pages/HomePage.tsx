@@ -9,7 +9,7 @@ interface HeroData {
   text2: string;
 }
 
-function App() {
+function HomePage() {
   // The text that will be animated
   const heroData: HeroData[] = [
     { text1: "Explore the ", text2: "unexplored" },
@@ -38,4 +38,4 @@ function App() {
   );
 }
 
-export default App;
+export default HomePage;

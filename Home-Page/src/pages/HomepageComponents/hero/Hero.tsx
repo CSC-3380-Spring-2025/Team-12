@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import {Link} from "react-router-dom";
 import "./hero.css";
 
 interface HeroData {
@@ -62,8 +63,12 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
       </div>
 
       {/* Clickable "Play" text */}
-      <div className="hero-play-text" onClick={handlePlayClick}>
-        Play
+      <div className="hero-play-text" >
+        <Link to="/play" className="no-underline"
+        onClick={handlePlayClick}
+        >
+          Play
+        </Link>
       </div>
 
       {/* Audio element */}
