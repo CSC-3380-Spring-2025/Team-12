@@ -4,12 +4,15 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
 import Chat from "../Chat/Chat";
 import Explore from "../Explore/Explore";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  // Define click handlers for each button
-  const [isChatOpen, setIsChatOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
+  const navigate = useNavigate();  // Initialize the navigate function
+
+  // REMOVED: isChatOpen state since we're using navigation now
 
   const handleLeaderboardClick = () => {
     console.log("Leaderboard clicked");
@@ -17,17 +20,13 @@ const Navbar: React.FC = () => {
   };
 
   const handleChatClick = () => {
-    console.log("Chat clicked");
-    setIsChatOpen(true);
-    // Add functionality here (e.g., open a chat window)
+    navigate("/chat");  // Changed to use navigation instead of modal
   };
 
   const handleExploreClick = () => {
     console.log("Explore clicked");
     setIsExploreOpen(true);
-    // Add functionality here (e.g., navigate to the explore page)
   };
-  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   const handleLoginClick = () => {
     console.log("Login clicked");
@@ -52,18 +51,15 @@ const Navbar: React.FC = () => {
       <div className="nav-logo">GeoGuessr</div>
       <ul className="nav-menu">
         <li onClick={handleLeaderboardClick}>Leaderboard</li>
-        <li onClick={handleChatClick}>Chat</li>
+        <li onClick={handleChatClick}>Chat</li>  {/* Now navigates to /chat */}
         <li onClick={handleExploreClick}>Explore</li>
         <li className="nav-sign" onClick={handleLoginClick}>Login</li>
         <li className="nav-sign" onClick={handleRegisterClick}>Register</li>
       </ul>
 
-      {/* Render LoginForm when isLoginOpen is true */}
+      {/* REMOVED: Chat modal since we're using a separate page now */}
       <LoginForm isOpen={isLoginOpen} onClose={handleCloseLogin} />
-      <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)}/>
-      <Explore isOpen={isExploreOpen} onClose={() => setIsExploreOpen(false)} /> 
-
-      {/* Render RegistrationForm when isRegisterOpen is true */}
+      <Explore isOpen={isExploreOpen} onClose={() => setIsExploreOpen(false)} />
       <RegistrationForm isOpen={isRegisterOpen} onClose={handleCloseRegister} />
     </div>
   );

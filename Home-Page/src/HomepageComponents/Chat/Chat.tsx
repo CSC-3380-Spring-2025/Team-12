@@ -1,67 +1,222 @@
 import React, { useState } from "react";
-import './Chat.css';  // Make sure to update styles if needed
+import { useNavigate } from "react-router-dom";
+import './Chat.css';
 
-interface Message {
-  text: string;
+type User = {
+  id: string;
+  name: string;
+  avatar?: string;
+  status: "online" | "offline";
+};
+
+type FriendRequest = {
+  id: string;
+  from: User;
+  message?: string;
   timestamp: string;
-}
+};
 
-interface ChatProps {
-  isOpen: boolean;
-  onClose: () => void;  // Function passed from parent to close the chat modal
-}
+type Message = {
+  id: string;
+  sender: User;
+  content: string;
+  timestamp: string;
+};
 
-const Chat: React.FC<ChatProps> = ({ isOpen, onClose }) => {
-  if (!isOpen) return null; // Don't render if the modal isn't open
+// Mock data
+const mockFriends: User[] = [
+  { id: "1", name: "Alex Johnson", status: "online" },
+  { id: "2", name: "Sam Wilson", status: "offline" },
+  { id: "3", name: "Taylor Swift", status: "online" },
+];
 
+const mockRequests: FriendRequest[] = [
+  {
+    id: "1",
+    from: { id: "4", name: "Morgan Taylor", status: "online" },
+    message: "Hey, let's connect!",
+    timestamp: new Date().toISOString(),
+  },
+];
+
+const Chat: React.FC = () => {
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState<"friends" | "requests" | "chat">("friends");
+  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>(mockRequests);
+  const [friends, setFriends] = useState<User[]>(mockFriends);
+  const [activeChat, setActiveChat] = useState<User | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState("");  // New message input field
+  const [newMessage, setNewMessage] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
-  // Function to handle sending a new message
-  const handleSendMessage = () => {
-    if (newMessage.trim() !== "") {
-      const timestamp = new Date().toLocaleTimeString(); // Get current time as timestamp
-      const newMessageObj = {
-        text: newMessage,
-        timestamp,
-      };
-      setMessages([...messages, newMessageObj]); // Add the new message to the list of messages
-      setNewMessage("");  // Clear the input field
+  const handleSendFriendRequest = () => {
+    if (searchInput.trim()) {
+      alert(`Friend request sent to ${searchInput}`);
+      setSearchInput("");
     }
   };
 
+  const handleAcceptRequest = (requestId: string) => {
+    const request = friendRequests.find(req => req.id === requestId);
+    if (request) {
+      setFriends([...friends, request.from]);
+      setFriendRequests(friendRequests.filter(req => req.id !== requestId));
+    }
+  };
+
+  const handleRejectRequest = (requestId: string) => {
+    setFriendRequests(friendRequests.filter(req => req.id !== requestId));
+  };
+
+  const startChat = (friend: User) => {
+    setActiveChat(friend);
+    setActiveTab("chat");
+    setMessages([
+      {
+        id: "1",
+        sender: friend,
+        content: `Hi there! This is ${friend.name}`,
+        timestamp: new Date().toISOString(),
+      },
+    ]);
+  };
+
+  const sendMessage = () => {
+    if (!newMessage.trim() || !activeChat) return;
+
+    const newMsg: Message = {
+      id: Date.now().toString(),
+      sender: { id: "current-user", name: "You", status: "online" },
+      content: newMessage,
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages([...messages, newMsg]);
+    setNewMessage("");
+  };
+
   return (
-    <div className="chat-modal">
-      <div className="chat-content">
-        {/* Close button - Red X icon inside the chat window */}
-        <span className="close-x" onClick={onClose}>&times;</span>
+    <div className="chat-page">
+      <div className="chat-header">
+        <span className="home-text" onClick={() => navigate("/")}>
+          Home
+        </span>
+        <h2 className="chat-title">Chat</h2>
+      </div>
 
-        {/* Welcome message */}
-        <div className="chat-welcome-message">
-          <p>Welcome to the Ghosttown Guessr chat! Feel free to send a message.</p>
-        </div>
+      <div className="chat-container">
+        <div className="sidebar left-sidebar">
+          <div className="tabs">
+            <button
+              className={activeTab === "friends" ? "active" : ""}
+              onClick={() => setActiveTab("friends")}
+            >
+              Friends
+            </button>
+            <button
+              className={activeTab === "requests" ? "active" : ""}
+              onClick={() => setActiveTab("requests")}
+            >
+              Requests ({friendRequests.length})
+            </button>
+          </div>
 
-        {/* Scrollable window for messages */}
-        <div className="chat-window">
-          {messages.map((message, index) => (
-            <div key={index} className="chat-message">
-              <span className="message-timestamp">{message.timestamp}</span>
-              <p className="message-text">{message.text}</p>
+          {activeTab === "friends" && (
+            <div className="friends-list">
+              {friends.map(friend => (
+                <div
+                  key={friend.id}
+                  className="friend-item"
+                  onClick={() => startChat(friend)}
+                >
+                  <span className={`status ${friend.status}`}></span>
+                  <span className="friend-name">{friend.name}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
+
+          {activeTab === "requests" && (
+            <div className="requests-list">
+              <h3 className="requests-title">Friend Requests</h3>
+              {friendRequests.map(request => (
+                <div key={request.id} className="request-item">
+                  <div className="request-info">
+                    <span className="requester-name">{request.from.name}</span>
+                    <p className="request-message">{request.message}</p>
+                  </div>
+                  <div className="request-actions">
+                    <button 
+                      className="accept-btn"
+                      onClick={() => handleAcceptRequest(request.id)}
+                    >
+                      Accept
+                    </button>
+                    <button 
+                      className="reject-btn"
+                      onClick={() => handleRejectRequest(request.id)}
+                    >
+                      Reject
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <div className="send-request">
+                <input 
+                  type="text" 
+                  value={searchInput}
+                  onChange={(e) => setSearchInput(e.target.value)}
+                  placeholder="Enter username" 
+                />
+                <button 
+                  className="send-request-btn"
+                  onClick={handleSendFriendRequest}
+                >
+                  Send Request
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
-        {/* Message input field and send button */}
-        <div className="chat-input-container">
-          <input
-            type="text"
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}  // Update input value
-            placeholder="Type your message..."
-            className="chat-input"
-          />
-          <button onClick={handleSendMessage} className="chat-send-btn">Send</button>
-        </div>
+        {activeTab === "chat" && activeChat && (
+          <div className="chat-area">
+            <div className="active-chat-header">
+              <h3 className="active-chat-name">{activeChat.name}</h3>
+              <span className={`status ${activeChat.status}`}></span>
+            </div>
+            <div className="messages">
+              {messages.map(msg => (
+                <div
+                  key={msg.id}
+                  className={`message ${
+                    msg.sender.id === "current-user" ? "sent" : "received"
+                  }`}
+                >
+                  <p className="message-content">{msg.content}</p>
+                  <span className="timestamp">
+                    {new Date(msg.timestamp).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="message-input">
+              <input
+                type="text"
+                value={newMessage}
+                onChange={e => setNewMessage(e.target.value)}
+                onKeyPress={e => e.key === "Enter" && sendMessage()}
+                placeholder="Type a message..."
+              />
+              <button className="send-message-btn" onClick={sendMessage}>
+                Send
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
