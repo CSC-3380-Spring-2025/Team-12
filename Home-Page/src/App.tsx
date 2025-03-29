@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Background from "./HomepageComponents/background/Background";
 import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
+import GamePage from "./HomepageComponents/GamePage/GamePage";
 
 interface HeroData {
   text1: string;
@@ -10,25 +11,26 @@ interface HeroData {
 }
 
 function App() {
-  // The text that will be animated
   const heroData: HeroData[] = [
     { text1: "Explore the ", text2: "unexplored" },
     { text1: "Chat and ", text2: "make new friends" },
     { text1: "Compete and ", text2: "fight for the top" },
   ];
 
-  // To transition the image and text
   const [heroCount, setHeroCount] = useState<number>(0);
 
-  // Function to handle video end
   const handleVideoEnd = () => {
-    setHeroCount((prevCount) => (prevCount + 1) % heroData.length); // Move to the next video
+    setHeroCount((prevCount) => (prevCount + 1) % heroData.length);
   };
 
   return (
     <Router>
       <div>
-        <Navbar />
+        {/* Conditionally render Navbar - only on homepage */}
+        <Routes>
+          <Route path="/" element={<Navbar />} />
+        </Routes>
+        
         <Routes>
           <Route
             path="/"
@@ -43,6 +45,7 @@ function App() {
               </>
             }
           />
+          <Route path="/game" element={<GamePage />} />
         </Routes>
       </div>
     </Router>
