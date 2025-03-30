@@ -16,8 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from authapp import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls')),  # Include authapp URLs
+    path('get_user_profile/', views.get_user_profile, name='get_user_profile'),
 ]
