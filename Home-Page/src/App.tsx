@@ -3,50 +3,57 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Background from "./HomepageComponents/background/Background";
 import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
+import Chat from "./HomepageComponents/Chat/Chat";
+import GamePage from "./HomepageComponents/GamePage/GamePage";
 
 interface HeroData {
   text1: string;
   text2: string;
 }
 
+function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
+
 function App() {
-  // The text that will be animated
   const heroData: HeroData[] = [
     { text1: "Explore the ", text2: "unexplored" },
     { text1: "Chat and ", text2: "make new friends" },
     { text1: "Compete and ", text2: "fight for the top" },
   ];
 
-  // To transition the image and text
   const [heroCount, setHeroCount] = useState<number>(0);
 
-  // Function to handle video end
   const handleVideoEnd = () => {
-    setHeroCount((prevCount) => (prevCount + 1) % heroData.length); // Move to the next video
+    setHeroCount((prevCount) => (prevCount + 1) % heroData.length);
   };
 
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
-                <Hero
-                  heroData={heroData[heroCount]}
-                  heroCount={heroCount}
-                  setHeroCount={setHeroCount}
-                />
-              </>
-            }
-          />
-        </Routes>
-      </div>
-    </Router>
+    <div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
+              <Hero
+                heroData={heroData[heroCount]}
+                heroCount={heroCount}
+                setHeroCount={setHeroCount}
+              />
+            </>
+          }
+        />
+        <Route path="/game" element={<GamePage />} />
+        <Route path="/chat" element={<Chat />} />
+      </Routes>
+    </div>
   );
 }
 
-export default App;
+export default AppWrapper;
