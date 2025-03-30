@@ -56,3 +56,10 @@ def user_logout(request):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+def get_user_profile(request):
+    user = request.user
+    return JsonResponse({
+        'username': user.username,
+        'email': user.email,
+    })
