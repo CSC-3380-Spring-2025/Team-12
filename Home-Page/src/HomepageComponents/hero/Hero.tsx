@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./hero.css";
+import { useNavigate } from "react-router-dom";
+
+
+
 
 interface HeroData {
   text1: string;
@@ -17,6 +21,7 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
   const [displayText2, setDisplayText2] = useState<string>("");
   const [typingIndex, setTypingIndex] = useState<number>(0);
   const audioRef = useRef<HTMLAudioElement>(null); // Reference to the audio element
+  const navigate = useNavigate();
 
   // Simulate typing effect
   useEffect(() => {
@@ -52,6 +57,7 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
     if (audioRef.current) {
       audioRef.current.play(); // Play audio when clicked
     }
+    navigate("/play");
   };
 
   return (

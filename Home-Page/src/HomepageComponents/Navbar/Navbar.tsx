@@ -4,6 +4,7 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
 import Chat from "../Chat/Chat";
 import Explore from "../Explore/Explore";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -11,8 +12,11 @@ const Navbar: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleLeaderboardClick = () => {
     console.log("Leaderboard clicked");
+    navigate("/leaderboard");
     // Add functionality here (e.g., navigate to the leaderboard page)
   };
 

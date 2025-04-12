@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Background from "./HomepageComponents/background/Background";
-import Navbar from "./HomepageComponents/Navbar/Navbar";
-import Hero from "./HomepageComponents/hero/Hero";
+import Background from "../HomepageComponents/background/Background";
+import Navbar from "../HomepageComponents/Navbar/Navbar";
+import Hero from "../HomepageComponents/hero/Hero";
+import Leaderboard from "./Leaderboard/Leaderboard";
+import Play from "./Play";
 
 interface HeroData {
   text1: string;
@@ -28,12 +30,13 @@ function App() {
   return (
     <Router>
       <div>
-        <Navbar />
         <Routes>
+          {/*Main Page*/}
           <Route
             path="/"
             element={
               <>
+                <Navbar />
                 <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
                 <Hero
                   heroData={heroData[heroCount]}
@@ -42,6 +45,17 @@ function App() {
                 />
               </>
             }
+          />
+          {/*Leaderboard Page */}
+          <Route
+            path="/leaderboard"
+            element={<Leaderboard />}
+          />
+
+          {/*Game Page */}
+          <Route
+            path="/play"
+            element={<Play />}
           />
         </Routes>
       </div>
