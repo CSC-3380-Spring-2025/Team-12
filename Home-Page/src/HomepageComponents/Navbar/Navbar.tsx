@@ -4,15 +4,18 @@ import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
 import Chat from "../Chat/Chat";
 import Explore from "../Explore/Explore";
+import Leaderboard from "../Leaderboard/Leaderboard";
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   // Define click handlers for each button
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false);
 
   const handleLeaderboardClick = () => {
     console.log("Leaderboard clicked");
+    setIsLeaderboardOpen(true);
     // Add functionality here (e.g., navigate to the leaderboard page)
   };
 
@@ -62,6 +65,7 @@ const Navbar: React.FC = () => {
       <LoginForm isOpen={isLoginOpen} onClose={handleCloseLogin} />
       <Chat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)}/>
       <Explore isOpen={isExploreOpen} onClose={() => setIsExploreOpen(false)} /> 
+      <Leaderboard isOpen={isLeaderboardOpen} onClose={() => setIsLeaderboardOpen(false)} />
 
       {/* Render RegistrationForm when isRegisterOpen is true */}
       <RegistrationForm isOpen={isRegisterOpen} onClose={handleCloseRegister} />
