@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./hero.css";
 
 interface HeroData {
@@ -12,13 +13,14 @@ interface HeroProps {
   setHeroCount: (count: number) => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
+const Hero: React.FC<HeroProps> = ({ heroData, heroCount, setHeroCount }) => {
   const [displayText1, setDisplayText1] = useState<string>("");
   const [displayText2, setDisplayText2] = useState<string>("");
   const [typingIndex, setTypingIndex] = useState<number>(0);
-  const audioRef = useRef<HTMLAudioElement>(null); // Reference to the audio element
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const navigate = useNavigate();
 
-  // Simulate typing effect
+  // Typing effect
   useEffect(() => {
     const fullText1 = heroData.text1;
     const fullText2 = heroData.text2;
@@ -27,31 +29,34 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
       const timeout = setTimeout(() => {
         setDisplayText1((prev) => prev + fullText1[typingIndex]);
         setTypingIndex((prev) => prev + 1);
-      }, 100); // Adjust typing speed (100ms per character)
+      }, 100);
 
       return () => clearTimeout(timeout);
     } else if (typingIndex < fullText1.length + fullText2.length) {
       const timeout = setTimeout(() => {
         setDisplayText2((prev) => prev + fullText2[typingIndex - fullText1.length]);
         setTypingIndex((prev) => prev + 1);
-      }, 100); // Adjust typing speed (100ms per character)
+      }, 100);
 
       return () => clearTimeout(timeout);
     }
   }, [typingIndex, heroData]);
 
-  // Reset typing effect when heroData changes
+  // Reset on heroData change
   useEffect(() => {
     setDisplayText1("");
     setDisplayText2("");
     setTypingIndex(0);
   }, [heroData]);
 
-  // Handle play button click
   const handlePlayClick = () => {
+    // Play audio
     if (audioRef.current) {
-      audioRef.current.play(); // Play audio when clicked
+      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
     }
+    
+    // Navigate to game page
+    navigate("/game");
   };
 
   return (
@@ -61,13 +66,12 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount }) => {
         <span>{displayText2}</span>
       </div>
 
-      {/* Clickable "Play" text */}
       <div className="hero-play-text" onClick={handlePlayClick}>
         Play
       </div>
 
-      {/* Audio element */}
-      <audio ref={audioRef} src="src/assets/evil-laugh (mp3cut.net).mp3"></audio>
+      {/* Audio - make sure the file exists in public/sounds */}
+      <audio ref={audioRef} src="/sounds/evil-laugh.mp3"></audio>
     </div>
   );
 };
