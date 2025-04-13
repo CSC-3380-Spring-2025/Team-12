@@ -63,11 +63,15 @@ WSGI_APPLICATION = 'RegisterLogin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_django_db',       # Database name
-        'USER': 'my_django_user',     # Database user
-        'PASSWORD': 'my_password',    # Database password
-        'HOST': 'localhost',          # Database host
-        'PORT': '3306',               # Database port
+        'NAME': 'my_django_db',
+        'USER': 'root',
+        'PASSWORD': 'password',
+        'HOST': 'db',  # Docker service name
+        'PORT': '3306',  # Default MySQL port
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            'connect_timeout': 5,
+        }
     }
 }
 
