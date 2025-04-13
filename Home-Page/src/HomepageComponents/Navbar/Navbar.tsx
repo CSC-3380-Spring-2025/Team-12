@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import "./Navbar.css";
 import LoginForm from "../LoginForm/LoginForm";
 import RegistrationForm from "../Registration/registrationForm"; // Import the RegistrationForm
-import Chat from "../Chat/Chat";
-import Explore from "../Explore/Explore";
+// import Chat from "../Chat/Chat";
+// import Explore from "../Explore/Explore";
 import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isExploreOpen, setIsExploreOpen] = useState(false);
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const navigate = useNavigate();  // Initialize the navigate function
 
@@ -24,8 +23,7 @@ const Navbar: React.FC = () => {
   };
 
   const handleExploreClick = () => {
-    console.log("Explore clicked");
-    setIsExploreOpen(true);
+    navigate("/explore")
   };
 
   const handleLoginClick = () => {
@@ -52,14 +50,14 @@ const Navbar: React.FC = () => {
       <ul className="nav-menu">
         <li onClick={handleLeaderboardClick}>Leaderboard</li>
         <li onClick={handleChatClick}>Chat</li>  {/* Now navigates to /chat */}
-        <li onClick={handleExploreClick}>Explore</li>
+        <li onClick={handleExploreClick}>Explore</li> {/* Handles navigation to explore */}
         <li className="nav-sign" onClick={handleLoginClick}>Login</li>
         <li className="nav-sign" onClick={handleRegisterClick}>Register</li>
       </ul>
 
-      {/* REMOVED: Chat modal since we're using a separate page now */}
+      {/* REMOVED: Chat and Explore modal since we're using a separate page now */}
       <LoginForm isOpen={isLoginOpen} onClose={handleCloseLogin} />
-      <Explore isOpen={isExploreOpen} onClose={() => setIsExploreOpen(false)} />
+      {/* <Explore isOpen={isExploreOpen} onClose={() => setIsExploreOpen(false)} /> */}
       <RegistrationForm isOpen={isRegisterOpen} onClose={handleCloseRegister} />
     </div>
   );
