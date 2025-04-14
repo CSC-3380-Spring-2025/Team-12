@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./GamePage.css";
+import { useAuth } from '../contexts/AuthContext';
 
 const GamePage = () => {
   const navigate = useNavigate();
+  const { username } = useAuth();
 
   return (
     <div className="game-page">
@@ -21,7 +23,7 @@ const GamePage = () => {
             <div className="game-nav-text">PLAY WITH FRIENDS</div>
             <div className="player-info">
               <span className="player-label">PLAYER:</span>
-              <span className="player-name">Truong</span>
+              <span className="player-name">{username || 'Guest'}</span>
             </div>
           </div>
         </div>

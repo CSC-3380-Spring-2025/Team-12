@@ -1,8 +1,10 @@
+# authapp/urls.py
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('register/', views.register_user, name='register_user'),  # Registration endpoint
-    path('login/', views.login_user, name='login_user'),          # Login endpoint
-    path('logout/', views.user_logout, name='logout'),           # Logout endpoint (if you have it)
+    path('register/', views.register_user, name='register_user'),
+    path('login/', views.login_user, name='login_user'),
+    path('logout/', views.user_logout, name='logout'),
+    path('check-auth/', views.check_auth, name='check_auth'),
 ]
