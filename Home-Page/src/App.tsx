@@ -5,6 +5,8 @@ import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
 import Chat from "./HomepageComponents/Chat/Chat";
 import GamePage from "./HomepageComponents/GamePage/GamePage";
+import Explore from "./HomepageComponents/Explore/Explore";
+
 
 interface HeroData {
   text1: string;
@@ -51,6 +53,7 @@ function App() {
         />
         <Route path="/game" element={<GamePage />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/explore" element={<Explore />} />
       </Routes>
     </div>
   );
