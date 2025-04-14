@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import './Chat.css';
+import "./Chat.css";
+import { FaComments } from 'react-icons/fa';
 
 type User = {
   id: string;
@@ -41,8 +42,11 @@ const mockRequests: FriendRequest[] = [
 
 const Chat: React.FC = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"friends" | "requests" | "chat">("friends");
-  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>(mockRequests);
+  const [activeTab, setActiveTab] = useState<"friends" | "requests" | "chat">(
+    "friends"
+  );
+  const [friendRequests, setFriendRequests] =
+    useState<FriendRequest[]>(mockRequests);
   const [friends, setFriends] = useState<User[]>(mockFriends);
   const [activeChat, setActiveChat] = useState<User | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -57,15 +61,15 @@ const Chat: React.FC = () => {
   };
 
   const handleAcceptRequest = (requestId: string) => {
-    const request = friendRequests.find(req => req.id === requestId);
+    const request = friendRequests.find((req) => req.id === requestId);
     if (request) {
       setFriends([...friends, request.from]);
-      setFriendRequests(friendRequests.filter(req => req.id !== requestId));
+      setFriendRequests(friendRequests.filter((req) => req.id !== requestId));
     }
   };
 
   const handleRejectRequest = (requestId: string) => {
-    setFriendRequests(friendRequests.filter(req => req.id !== requestId));
+    setFriendRequests(friendRequests.filter((req) => req.id !== requestId));
   };
 
   const startChat = (friend: User) => {
@@ -98,10 +102,18 @@ const Chat: React.FC = () => {
   return (
     <div className="chat-page">
       <div className="chat-header">
-        <span className="home-text" onClick={() => navigate("/")}>
-          Home
-        </span>
-        <h2 className="chat-title">Chat</h2>
+        <div className="chat-left">
+          <span className="home-text" onClick={() => navigate("/")}>
+            Home
+          </span>
+        </div>
+        <div className="chat-center">
+          <h2 className="chat-title">
+            Chat <FaComments style={{ marginRight: '0.5rem' }} />
+          </h2>
+        </div>
+        <div className="chat-right"></div>{" "}
+        {/* Left some space to add more if need/want to */}
       </div>
 
       <div className="chat-container">
@@ -123,7 +135,7 @@ const Chat: React.FC = () => {
 
           {activeTab === "friends" && (
             <div className="friends-list">
-              {friends.map(friend => (
+              {friends.map((friend) => (
                 <div
                   key={friend.id}
                   className="friend-item"
@@ -139,20 +151,20 @@ const Chat: React.FC = () => {
           {activeTab === "requests" && (
             <div className="requests-list">
               <h3 className="requests-title">Friend Requests</h3>
-              {friendRequests.map(request => (
+              {friendRequests.map((request) => (
                 <div key={request.id} className="request-item">
                   <div className="request-info">
                     <span className="requester-name">{request.from.name}</span>
                     <p className="request-message">{request.message}</p>
                   </div>
                   <div className="request-actions">
-                    <button 
+                    <button
                       className="accept-btn"
                       onClick={() => handleAcceptRequest(request.id)}
                     >
                       Accept
                     </button>
-                    <button 
+                    <button
                       className="reject-btn"
                       onClick={() => handleRejectRequest(request.id)}
                     >
@@ -162,13 +174,13 @@ const Chat: React.FC = () => {
                 </div>
               ))}
               <div className="send-request">
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="Enter username" 
+                  placeholder="Enter username"
                 />
-                <button 
+                <button
                   className="send-request-btn"
                   onClick={handleSendFriendRequest}
                 >
@@ -186,7 +198,7 @@ const Chat: React.FC = () => {
               <span className={`status ${activeChat.status}`}></span>
             </div>
             <div className="messages">
-              {messages.map(msg => (
+              {messages.map((msg) => (
                 <div
                   key={msg.id}
                   className={`message ${
@@ -207,8 +219,8 @@ const Chat: React.FC = () => {
               <input
                 type="text"
                 value={newMessage}
-                onChange={e => setNewMessage(e.target.value)}
-                onKeyPress={e => e.key === "Enter" && sendMessage()}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && sendMessage()}
                 placeholder="Type a message..."
               />
               <button className="send-message-btn" onClick={sendMessage}>
