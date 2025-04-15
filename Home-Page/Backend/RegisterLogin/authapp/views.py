@@ -1,8 +1,10 @@
-# authapp/views.py
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
 import json
 
 @csrf_exempt
@@ -54,6 +56,62 @@ def user_logout(request):
         try:
             logout(request)
             return JsonResponse({'message': 'Logout successful'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+def forgot_password(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email')
+            
+            try:
+                user = User.objects.get(email=email)
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                
+                return JsonResponse({
+                    'message': 'Proceed to password reset',
+                    'uidb64': uid,
+                    'token': token,
+                    'email': email
+                }, status=200)
+            except User.DoesNotExist:
+                return JsonResponse({'error': 'Email not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+@csrf_exempt
+def reset_password(request, uidb64, token):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            new_password = data.get('new_password')
+            confirm_password = data.get('confirm_password')
+            
+            if new_password != confirm_password:
+                return JsonResponse({'error': 'Passwords do not match'}, status=400)
+            
+            try:
+                uid = urlsafe_base64_decode(uidb64).decode()
+                user = User.objects.get(pk=uid)
+                
+                if default_token_generator.check_token(user, token):
+                    user.set_password(new_password)
+                    user.save()
+                    return JsonResponse({
+                        'message': 'Password updated successfully',
+                        'username': user.username,
+                        'redirect_url': '/'  # Add redirect URL
+                    }, status=200)
+                return JsonResponse({'error': 'Invalid token'}, status=400)
+                
+            except (User.DoesNotExist, ValueError, TypeError) as e:
+                return JsonResponse({'error': 'Invalid user ID'}, status=400)
+                
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method'}, status=405)
