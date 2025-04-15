@@ -4,14 +4,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bl($ucf%_42df3poaj_6aditbt1@rtk&okczg4v&dr8hsmr2k#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
@@ -27,7 +21,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # Moved to the top
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -37,8 +31,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True  # Allow requests from any origin
-
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'RegisterLogin.urls'
 
 TEMPLATES = [
@@ -66,8 +59,8 @@ DATABASES = {
         'NAME': 'my_django_db',
         'USER': 'root',
         'PASSWORD': 'password',
-        'HOST': 'db',  # Docker service name
-        'PORT': '3306',  # Default MySQL port
+        'HOST': 'db',
+        'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'connect_timeout': 5,
@@ -97,15 +90,21 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files
 STATIC_URL = 'static/'
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Session/Cookie settings
 SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_SECURE = False
 SESSION_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SECURE = False
 CSRF_COOKIE_HTTPONLY = True
-CORS_ALLOW_CREDENTIALS = True  # Important for session cookies
+CORS_ALLOW_CREDENTIALS = True
+
+# Email settings (for password reset)
+FRONTEND_URL = 'http://localhost:3000'  # Your React frontend URL
+DEFAULT_FROM_EMAIL = 'noreply@geoguessr.com'  # Change to your domain
+
+# For development - console email backend
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
