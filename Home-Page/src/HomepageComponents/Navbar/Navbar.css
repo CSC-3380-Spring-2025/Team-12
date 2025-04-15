@@ -44,3 +44,13 @@
     background-color: #ffcc00; /* Change background color on hover */
     color: black; /* Change text color on hover */
   }
+  .nav-user {
+    color: white;
+    padding: 0 15px;
+    cursor: default;
+  }
+  
+  .nav-user:hover {
+    background-color: transparent;
+    color: white;
+  }

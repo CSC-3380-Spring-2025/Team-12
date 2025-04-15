@@ -5,6 +5,7 @@ import Navbar from "./HomepageComponents/Navbar/Navbar";
 import Hero from "./HomepageComponents/hero/Hero";
 import Chat from "./HomepageComponents/Chat/Chat";
 import GamePage from "./HomepageComponents/GamePage/GamePage";
+import { AuthProvider } from "./HomepageComponents/contexts/AuthContext";
 
 interface HeroData {
   text1: string;
@@ -14,7 +15,9 @@ interface HeroData {
 function AppWrapper() {
   return (
     <Router>
-      <App />
+      <AuthProvider>
+        <App />
+      </AuthProvider>
     </Router>
   );
 }
@@ -38,15 +41,12 @@ function App() {
         <Route
           path="/"
           element={
-            <>
-              <Navbar />
-              <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
-              <Hero
-                heroData={heroData[heroCount]}
-                heroCount={heroCount}
-                setHeroCount={setHeroCount}
-              />
-            </>
+            <HomePage 
+              heroCount={heroCount}
+              handleVideoEnd={handleVideoEnd}
+              heroData={heroData[heroCount]}
+              setHeroCount={setHeroCount}
+            />
           }
         />
         <Route path="/game" element={<GamePage />} />
@@ -55,5 +55,31 @@ function App() {
     </div>
   );
 }
+
+interface HomePageProps {
+  heroCount: number;
+  handleVideoEnd: () => void;
+  heroData: HeroData;
+  setHeroCount: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const HomePage: React.FC<HomePageProps> = ({
+  heroCount,
+  handleVideoEnd,
+  heroData,
+  setHeroCount
+}) => {
+  return (
+    <>
+      <Navbar />
+      <Background heroCount={heroCount} onVideoEnd={handleVideoEnd} />
+      <Hero
+        heroData={heroData}
+        heroCount={heroCount}
+        setHeroCount={setHeroCount}
+      />
+    </>
+  );
+};
 
 export default AppWrapper;
