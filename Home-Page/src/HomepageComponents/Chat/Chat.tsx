@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Chat.css";
-import { FaComments } from 'react-icons/fa';
+import { FaComments, FaUserPlus, FaArrowUp, FaBars } from 'react-icons/fa';
 
 type User = {
   id: string;
@@ -26,15 +26,17 @@ type Message = {
 
 // Mock data
 const mockFriends: User[] = [
-  { id: "1", name: "Alex Johnson", status: "online" },
-  { id: "2", name: "Sam Wilson", status: "offline" },
-  { id: "3", name: "Taylor Swift", status: "online" },
+  { id: "1", name: "Hannah Lowery", status: "online" },
+  { id: "2", name: "Adam Brown", status: "offline" },
+  { id: "3", name: "Truong Nguyen", status: "online" },
+  { id: "4", name: "Benny Ly", status: "online" },
+  { id: "5", name: "Layla Jones", status: "offline" },
 ];
 
 const mockRequests: FriendRequest[] = [
   {
     id: "1",
-    from: { id: "4", name: "Morgan Taylor", status: "online" },
+    from: { id: "4", name: "Malachi", status: "online" },
     message: "Hey, let's connect!",
     timestamp: new Date().toISOString(),
   },
@@ -42,11 +44,9 @@ const mockRequests: FriendRequest[] = [
 
 const Chat: React.FC = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<"friends" | "requests" | "chat">(
-    "friends"
-  );
-  const [friendRequests, setFriendRequests] =
-    useState<FriendRequest[]>(mockRequests);
+  const [showRequests, setShowRequests] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
+  const [friendRequests, setFriendRequests] = useState<FriendRequest[]>(mockRequests);
   const [friends, setFriends] = useState<User[]>(mockFriends);
   const [activeChat, setActiveChat] = useState<User | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -74,7 +74,7 @@ const Chat: React.FC = () => {
 
   const startChat = (friend: User) => {
     setActiveChat(friend);
-    setActiveTab("chat");
+    setShowRequests(false);
     setMessages([
       {
         id: "1",
@@ -103,52 +103,88 @@ const Chat: React.FC = () => {
     <div className="chat-page">
       <div className="chat-header">
         <div className="chat-left">
-          <span className="home-text" onClick={() => navigate("/")}>
-            Home
-          </span>
+          <div className="menu-icon" onClick={() => setShowMenu(!showMenu)}>
+            <FaBars />
+          </div>
+          {showMenu && (
+            <div className="dropdown-menu">
+              <div 
+                className="menu-item" 
+                onClick={() => {
+                  navigate("/");
+                  setShowMenu(false);
+                }}
+              >
+                Home
+              </div>
+              <div 
+                className="menu-item"
+                onClick={() => {
+                  navigate("/game");
+                  setShowMenu(false);
+                }}
+              >
+                Game Page
+              </div>
+            </div>
+          )}
         </div>
         <div className="chat-center">
           <h2 className="chat-title">
             Chat <FaComments style={{ marginRight: '0.5rem' }} />
           </h2>
         </div>
-        <div className="chat-right"></div>{" "}
-        {/* Left some space to add more if need/want to */}
+        <div className="chat-right">
+          <div 
+            className="friend-request-icon" 
+            onClick={() => setShowRequests(!showRequests)}
+          >
+            <FaUserPlus />
+            {friendRequests.length > 0 && (
+              <span className="request-count">{friendRequests.length}</span>
+            )}
+          </div>
+        </div>
       </div>
 
       <div className="chat-container">
         <div className="sidebar left-sidebar">
-          <div className="tabs">
-            <button
-              className={activeTab === "friends" ? "active" : ""}
-              onClick={() => setActiveTab("friends")}
-            >
-              Friends
-            </button>
-            <button
-              className={activeTab === "requests" ? "active" : ""}
-              onClick={() => setActiveTab("requests")}
-            >
-              Requests ({friendRequests.length})
-            </button>
+          <div className="friends-list">
+            {friends.map((friend) => (
+              <div
+                key={friend.id}
+                className="friend-item"
+                onClick={() => startChat(friend)}
+              >
+                <span className={`status ${friend.status}`}></span>
+                <span className="friend-name">{friend.name}</span>
+                {activeChat?.id === friend.id && (
+                  <span className="active-indicator"></span>
+                )}
+              </div>
+            ))}
           </div>
+        </div>
 
-          {activeTab === "friends" && (
-            <div className="friends-list">
-              {friends.map((friend) => (
-                <div
-                  key={friend.id}
-                  className="friend-item"
-                  onClick={() => startChat(friend)}
-                >
-                  <span className={`status ${friend.status}`}></span>
-                  <span className="friend-name">{friend.name}</span>
-                </div>
-              ))}
+        {showRequests && (
+          <div className="requests-popup">
+            <div className="requests-header">
+              <h3>Add Friend</h3>
             </div>
-          )}
-
-          {activeTab === "requests" && (
+            <div className="send-request">
+              <input
+                type="text"
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                placeholder="Enter username"
+              />
+              <button
+                className="send-request-btn"
+                onClick={handleSendFriendRequest}
+              >
+                Send Request
+              </button>
+            </div>
             <div className="requests-list">
               <h3 className="requests-title">Friend Requests</h3>
               {friendRequests.map((request) => (
@@ -173,25 +209,11 @@ const Chat: React.FC = () => {
                   </div>
                 </div>
               ))}
-              <div className="send-request">
-                <input
-                  type="text"
-                  value={searchInput}
-                  onChange={(e) => setSearchInput(e.target.value)}
-                  placeholder="Enter username"
-                />
-                <button
-                  className="send-request-btn"
-                  onClick={handleSendFriendRequest}
-                >
-                  Send Request
-                </button>
-              </div>
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
-        {activeTab === "chat" && activeChat && (
+        {activeChat ? (
           <div className="chat-area">
             <div className="active-chat-header">
               <h3 className="active-chat-name">{activeChat.name}</h3>
@@ -221,12 +243,17 @@ const Chat: React.FC = () => {
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                placeholder="Type a message..."
+                placeholder="Type a message"
               />
               <button className="send-message-btn" onClick={sendMessage}>
-                Send
+                <FaArrowUp className="send-arrow-icon" />
               </button>
             </div>
+          </div>
+        ) : (
+          <div className="empty-chat">
+            <FaComments className="empty-chat-icon" />
+            <p>Select a chat to start messaging</p>
           </div>
         )}
       </div>
