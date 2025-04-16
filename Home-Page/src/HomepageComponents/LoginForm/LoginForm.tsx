@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./loginForm.css";
 import { FaUser, FaLock } from "react-icons/fa";
 import ForgotPassword from "../forgotPassword/forgotPassword";
+import { useAuth } from '../contexts/AuthContext';
 
 interface LoginFormProps {
     isOpen: boolean;
@@ -13,6 +14,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ isOpen, onClose }) => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [isForgotPasswordOpen, setIsForgotPasswordOpen] = useState(false);
+    const { login } = useAuth();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -23,14 +25,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ isOpen, onClose }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
+                credentials: 'include',
                 body: JSON.stringify({ username, password }),
             });
 
             const data = await response.json();
 
             if (response.ok) {
-                alert("Login successful!");
-                onClose(); // Close the modal
+                login(username);
+                onClose();
             } else {
                 setError(data.error || "Login failed");
             }
