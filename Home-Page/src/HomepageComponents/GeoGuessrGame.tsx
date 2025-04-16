@@ -19,7 +19,7 @@ const GeoGuessrGame: React.FC<GeoGuessrGameProps> = ({ onExit }) => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [result, setResult] = useState<string | null>(null);
 
-  const API_KEY = 'AIzaSyCgi17uXKvtR8TOwZYq99xZwERDq--R088';
+  const API_KEY = 'putkeyhere'; //PUT KEY HEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE or someone make a .env file for it
 
   const locations: Location[] = [
     { lat: 40.7128, lng: -74.0060, name: 'New York', country: 'United States' },
