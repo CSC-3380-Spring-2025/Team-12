@@ -1,55 +1,75 @@
-.explore-modal {
-    position: relative;
-    width: 60%; /* Increase width */
-    max-width: 800px; /* Set a max width */
-    height: 70vh; /* Increase height */
-    padding: 20px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between; /* Distribute content */
-  }
-  
-  
-  .close-x {
-    position: absolute; /* Position it inside the modal */
-    top: 10px; /* Distance from the top */
-    right: 15px; /* Distance from the right */
-    font-size: 24px;
-    cursor: pointer;
-    color: red; /* Red color for the 'X' */
-  }
-  
-  .fun-fact {
-    background: #f8f9fa;
-    color: black;
-    padding: 10px;
-    margin-top: 10px;
-    border-left: 5px solid #ff5733;
-    font-style: italic;
-  }
-  
-  .map-button {
-    background: #070707;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    margin-top: 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-  }
-  
-  .map-button:hover {
-    background: #105cea;
-  }
+.explore-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: white; 
+}
 
-  .fun-fact p {
-    font-size: 16px;
-    margin-top: 10px;
-    color: #555;
-  }
-  
+/* Main content of explore page */
+.explore-container {
+  display: flex;
+  flex: 1;
+  padding: 40px;
+  gap: 40px;
+  background-color: #3d3d3d;
+}
+
+/* Fun Facts Section */
+.fun-fact {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  padding: 20px;
+  background-color: #b2b2b2;
+  border-radius: 10px;
+}
+
+
+.fun-fact h3 {
+  margin-bottom: 10px;
+  font-size: 24px;
+  text-align: center;
+}
+
+.fun-fact p {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.fun-fact button {
+  padding: 10px 15px;
+  font-size: 16px;
+  color: black;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.fun-fact button:hover {
+  background-color: #0056b3;
+}
+
+/* Soon-to-be Image Carousel */
+.image-carousel {
+  flex: 1;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-carousel img {
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.icon {
+  font-size: 20px;
+  margin-left: 8px;
+}

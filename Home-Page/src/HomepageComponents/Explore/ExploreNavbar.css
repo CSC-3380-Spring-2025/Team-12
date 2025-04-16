@@ -1,0 +1,39 @@
+.explore-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #111;
+    color: white;
+  }
+  
+  .explore-title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  
+  .explore-buttons {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .explore-buttons button {
+    padding: 14px 40px;
+    font-size: 14px;
+    background-color: black;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .explore-buttons button:hover {
+    background-color: #555;
+  }
+
+  .ghost-icon {
+    margin-right: 10px;
+    font-size: 64px;
+    vertical-align: middle;
+  }
+  
