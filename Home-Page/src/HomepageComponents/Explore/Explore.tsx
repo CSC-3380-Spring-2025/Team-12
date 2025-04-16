@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import ExploreNavbar from "./ExploreNavbar";
 import "./Explore.css";
 import { HiAnnotation } from "react-icons/hi";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+// Image carousel imports
+import ghosttown_image1 from '../../assets/hashima-island-japan-ghosttown.jpg';
+import ghosttown_image2 from '../../assets/pripyat-ukraine-ghosttown.jpg';
+import ghosttown_image3 from '../../assets/bodie-california-ghosttown.jpg';
+
+
 
 
 const funFacts = [
@@ -51,8 +59,20 @@ const Explore: React.FC = () => {
         </div>
 
         <div className="image-carousel">
-          {/* Planning on adding an image carousel of different ghost towns */}
-          <img src="ghost-town-image1.jpg" alt="Image Placeholder" />
+          <Carousel>
+            <div>
+              <img src={ghosttown_image1} alt="Hashima Island, Japan" />
+              <p className="legend">Hashima Island, Japan; Heavily populated with coal mines, but abandoned in 1974 due to a shift in petroleum-based energy.</p>
+            </div>
+            <div>
+              <img src={ghosttown_image2} alt="Pripyat, Ukraine" />
+              <p className="legend">Pripyat, Ukraine; abandoned after the Chernobyl incident of 1986.</p>
+            </div>
+            <div>
+              <img src={ghosttown_image3} alt="Bodie, California" />
+              <p className="legend">Bodie, California; Once a mining town, but abandoned due to the official suspension of mining in 1942.</p>
+            </div>
+          </Carousel>
         </div>
       </div>
     </div>
