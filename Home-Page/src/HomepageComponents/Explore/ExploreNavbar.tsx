@@ -15,6 +15,10 @@ const ExploreNavbar: React.FC = () => {
     navigate("/map");  // Navigate to the map page (still need to incorporate our map)
   };
 
+  const handlePlayClick = () => {
+    navigate("/game");
+  }
+
   return (
     <div className="explore-navbar">
         <h2 className="explore-title">
@@ -22,6 +26,7 @@ const ExploreNavbar: React.FC = () => {
         <div className="explore-buttons">
       <button onClick={handleHomeClick}>Home</button>
       <button onClick={handleViewMapClick}>Map</button>
+      <button onClick={handlePlayClick}>Play</button>
       </div>
     </div>
   );
