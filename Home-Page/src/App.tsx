@@ -8,6 +8,7 @@ import GamePage from "./HomepageComponents/GamePage/GamePage";
 import { AuthProvider } from "./HomepageComponents/contexts/AuthContext";
 import ResetPassword from "./HomepageComponents/forgotPassword/ResetPassword";
 import Explore from "./HomepageComponents/Explore/Explore";
+import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
 
 
 interface HeroData {
@@ -56,6 +57,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </div>
   );
