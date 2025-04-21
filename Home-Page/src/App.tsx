@@ -53,6 +53,7 @@ function App() {
           }
         />
         <Route path="/game" element={<GamePage />} />
+        <Route path="/game-medium" element={<a href="./game-medium.html" target="_blank">Open HTML Page</a>} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/explore" element={<Explore />} />

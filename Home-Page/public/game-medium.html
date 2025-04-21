@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Medium Mode</title>
+        <script src="https://polyfill.io/vs/polyfill.min.js?features=default"></script>
+        <style type="text/css">
+            html,
+            body {
+                max-height: 100vh;
+                overflow: hidden;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            #pano {
+                float: right;
+                height: 90%;
+                width: 100%;
+            }
+            .gm-iv-address {
+            display: none;
+            }
+
+            #map {
+                position: absolute;
+                top: 60%;
+                left: 73%;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                text-align: center;
+                line-height: 30px;
+                padding-left: 10px;
+                height: 35%;
+                width: 25%;
+            }
+
+            #game-header {
+                display: flex;
+                background-color: #000000;
+                color: white;
+                padding: 1rem 2rem;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            #game-title {
+                margin: 0;
+                font-family: sans-serif;
+                font-size: 2rem;
+                font-weight: bold;
+                letter-spacing: 1px;
+            }
+
+
+            #button {
+                display: none;
+                position: relative;
+                justify-content: center; 
+                align-items: center; 
+                width: fit-content; 
+                padding: 5px 5px;
+                border-radius: 10px; 
+                background-color: white; 
+                color: black; 
+                font-family: sans-serif;
+                font-size: 22px; 
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            #score {
+                text-align: center;
+                position: fixed;
+                left: 45%;
+                color: white;
+                font-size: 18px;
+                flex-grow: 1;
+                font-family: sans-serif;
+            }
+        </style>
+        <script>
+            const locations = [
+                [{ lat: 59.320227, lng: 27.781221}, {country: 'Estonia'}], //Sirgala, Estonia
+                [{ lat: 51.276937, lng: 30.215941}, {country: 'Ukrane'}], //Chernobyl, Ukraine
+                [{ lat: 51.406015, lng: 30.054290}, {country: 'Ukrane'}], //Pripyat, Ukraine
+                [{ lat: 45.784436, lng: 9.393244}, {country: 'Italy'}], //Consonno, Olginate, Italy
+                [{ lat: 39.765073, lng: 19.876701}, {country: 'Greece'}], //Old Perthia, Greece
+                [{ lat: 45.313958, lng: 22.110755}, {country: 'Romania'}], //Lindenfeld, Romania
+                [{ lat: 35.103788, lng: 33.962678}, {country: 'Cyrpus'}], //Maraş(Varosha), Cyprus
+                [{ lat: 10.622093, lng: 104.026556}, {country: 'Cambodia'}], //Bokor Hill Station, Cambodia
+                [{ lat: 32.628102, lng: 129.737966}, {country: 'Japan'}], //Hashima Island, Japan
+                [{ lat: -26.702491, lng: 15.230167}, {country: 'Namibia'}], //Kolmanskop, Namibia
+                [{ lat: -34.085117, lng: -70.381686}, {country: 'Chile'}], //Sewell Mining Town, Chile
+                [{ lat: -3.826791, lng: -55.494232}, {country: 'Brazil'}], //Fordlandia, Brazil 
+                [{ lat: 24.629086, lng: -82.874116}, {country: 'USA'}], //Fort Jefferson, Florida, USA
+                [{ lat: 36.900232, lng: -116.829255}, {country: 'USA'}], //Rhyolite, Nevada, USA
+                [{ lat: 38.881805, lng: -117.608465}, {country: 'USA'}], //Berlin, Nevada, USA
+                [{ lat: 38.213041, lng: -119.012700}, {country: 'USA'}], //Bodie, California, USA
+                [{ lat: 49.372173, lng: -109.281425}, {country: 'Canada'}], //Robsart, Saskatchewan, Canada
+                [{ lat: 51.231082, lng: -115.524376}, {country: 'Canada'}], //Bankhead, Banff, Alberta, Canada
+            ]
+
+            let currentPlace = locations[Math.floor(Math.random() * (locations.length))] //random spawn
+            let currentCoords = currentPlace[0] //coordinates
+
+            round = 0
+            score = 0
+
+            // found from https://www.youtube.com/watch?v=unP5Yc55bdg&t=2s&ab_channel=ComputerScienceLessons
+            // checks distance between guess and actual location
+            function guessDistance(){
+                let lat1 = guessMarker.position.lat()
+                let lng1 = guessMarker.position.lng()
+                let lat2 = currentCoords.lat
+                let lng2 = currentCoords.lng
+
+                let R = 6371; // radius of earth in km
+                let dLat = deg2rad(lat2-lat1);
+                let dLng = deg2rad(lng2-lng1);
+                let a = 
+                Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLng/2) * Math.sin(dLng/2);
+                let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                let dist = R * c; // in km
+                return dist;
+            }
+
+            // deg2rad: degree to radians
+            function deg2rad(deg){
+                return deg * (Math.PI/180)
+            }
+
+            function getScore(){
+                let distance = guessDistance();
+                let total = Math.max(5000 - Math.floor(distance), 0); // score based on distance, linear
+
+                return total;
+            }
+
+
+            function nextround() {
+                if (round < 5) { 
+                    round++; // increment round number
+                    let temp;
+
+                    do {
+                        temp = locations[Math.floor(Math.random() * locations.length)]; 
+                    } while (temp[0].lat === currentPlace[0].lat && temp[0].lng === currentPlace[0].lng);
+
+                    // ensure new location is different
+                    currentPlace = temp;
+                    currentCoords = currentPlace[0];
+
+                    initialize(); // restart map with new location
+                }
+            }
+
+            function initialize(){
+                let hasGuessed = false; // tracks whether a guess has been made
+
+                document.getElementById("button").style.display = "none"; //makes continue button invincible
+                const panorama = new google.maps.StreetViewPanorama(
+                    document.getElementById("pano"), {
+                        position: currentCoords,
+                        pov: {
+                            heading: 34,
+                            pitch: 10,
+                        },
+                        panControl: false,
+                        linksControl: false,
+                        showRoadLabels: false,
+                        fullscreenControl: false,
+                    }
+                );
+                
+                map = new google.maps.Map(document.getElementById("map"), {
+                    center: {lat: 0, lng: 0},
+                    zoom: 1,
+                    minZoom: 1,
+                    streetViewControl: false,
+                    mapTypeControl: false,
+                    fullscreenControl: false,
+                    restriction: {
+                        latLngBounds:{
+                            north: 80,
+                            south: -80,
+                            east: 180,
+                            west: -180,
+                        },
+                    },
+                });
+
+                windowLatLng = new google.maps.LatLng(0, 0);
+
+                infoWindow = new google.maps.InfoWindow({
+                    position: windowLatLng,
+                    content: "Look around and double click to make your guess",
+                });
+
+                infoWindow.open(map);
+
+                // listener for user answer, and handling what happens next
+                map.addListener("dblclick", (mapsMouseEvent) => {
+                    if (hasGuessed) return; // does not allow extra guesses
+
+                    hasGuessed = true; // marked true since only guess
+
+                    userGuess = new google.maps.LatLng(mapsMouseEvent.latLng.lat(), mapsMouseEvent.latLng.lng());
+
+                    guessMarker = new google.maps.Marker({
+                        position: mapsMouseEvent.latLng,
+                    })
+
+                    guessMarker.setMap(map);
+
+                    target = new google.maps.LatLng(currentCoords.lat, currentCoords.lng);
+                    targetMarker = new google.maps.Marker({
+                        position: target,
+                        draggable: false,
+                        anchor: new google.maps.Point(15,15)
+                    });
+
+                    targetMarker.setMap(map);
+
+                    distance = guessDistance();
+
+                    infoWindow.close();
+
+                
+                    // line from guess to location
+                    lineCoordinates = [
+                        target,
+                        userGuess,
+                    ];
+                    linePath = new google.maps.Polyline({
+                        path: lineCoordinates,
+                        geodesic: true,
+                        strokeColor: "#FF0000",
+                        strokeOpacity: 1,
+                        strokeWeight: 2,
+                    });
+
+                    linePath.setMap(map);
+
+                    score = score + getScore(); // adding to score
+
+                    distanceWindow = new google.maps.InfoWindow({
+                    });
+                    
+                    distanceWindow.setContent("You earned " + score + " points.");
+                    distanceWindow.open(map, targetMarker);
+
+                    document.getElementById("score").innerText = `Score: ${score}`;
+
+                    if (round < 4){ // continue only shows for the first 4 rounds
+                        let button = document.getElementById("button");
+                        button.style.display = "block";
+                        document.getElementById("button").onclick = function() {nextround();};
+                    } // maybe add else so that an end game screen appears
+                });
+
+                map.setStreetView(panorama);
+            }
+        </script>
+    </head>
+    <body> 
+      <div id="game-header">
+        <h1 id="game-title">GeoGuessr</h1>
+        <div id="score">Score: 0</div>
+        <div id="button">
+            Continue
+        </div>
+      </div>
+        <div id="pano"></div>
+        
+        <div id="map"></div>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgi17uXKvtR8TOwZYq99xZwERDq--R088&callback=initialize&v=weekly"
+            defer
+        ></script>
+    </body>
+</html>
