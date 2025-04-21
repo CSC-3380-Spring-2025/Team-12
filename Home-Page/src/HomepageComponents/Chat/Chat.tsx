@@ -53,7 +53,8 @@ const botResponses = [
   "hehehe so funny :/",
   "I'll pretend I understood that perfectly.",
   "innterestingg",
-  "I'm learning so much from our conversation!"
+  "I'm learning so much from our conversation!",
+  "You're such a BOT!"
 ];
 
 const getRandomResponse = () => {
