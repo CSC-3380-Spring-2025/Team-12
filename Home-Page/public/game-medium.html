@@ -79,6 +79,21 @@
                 flex-grow: 1;
                 font-family: sans-serif;
             }
+
+            #gameend-header{
+                display: none;
+                width: fit-content;
+                padding: 30px 60px;
+                border-radius: 15px;
+                font-size: 18px;
+                background-color: #000000;
+                color: #ffffff;
+                font-family: sans-serif;
+                position: relative;
+                z-index: 2;
+                left: 35%;
+                top: 35%;
+            }
         </style>
         <script>
             const locations = [
@@ -150,7 +165,7 @@
                         temp = locations[Math.floor(Math.random() * locations.length)]; 
                     } while (temp[0].lat === currentPlace[0].lat && temp[0].lng === currentPlace[0].lng);
 
-                    // ensure new location is different
+                    // ensure new location is different than at least the last one, will need to implement a way to check if any other locations are duplicates
                     currentPlace = temp;
                     currentCoords = currentPlace[0];
 
@@ -250,7 +265,7 @@
                     distanceWindow = new google.maps.InfoWindow({
                     });
                     
-                    distanceWindow.setContent("You earned " + score + " points.");
+                    distanceWindow.setContent("You earned " + getScore() + " points.");
                     distanceWindow.open(map, targetMarker);
 
                     document.getElementById("score").innerText = `Score: ${score}`;
@@ -259,7 +274,11 @@
                         let button = document.getElementById("button");
                         button.style.display = "block";
                         document.getElementById("button").onclick = function() {nextround();};
-                    } // maybe add else so that an end game screen appears
+                    } else if (round => 4){ // maybe add else so that an end game screen appears
+                        let gameEnd = document.getElementById("gameend-header");
+                        document.getElementById("gameend-header").innerText = `Congrats! You got a score of: ${score}`;
+                        gameEnd.style.display = "block";
+                    }
                 });
 
                 map.setStreetView(panorama);
@@ -270,12 +289,11 @@
       <div id="game-header">
         <h1 id="game-title">GeoGuessr</h1>
         <div id="score">Score: 0</div>
-        <div id="button">
-            Continue
-        </div>
+        <div id="button">Continue</div>
       </div>
-        <div id="pano"></div>
-        
+        <div id="pano">
+            <div id="gameend-header">Congrats! You got a score of: 0</div>
+        </div>
         <div id="map"></div>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgi17uXKvtR8TOwZYq99xZwERDq--R088&callback=initialize&v=weekly"
