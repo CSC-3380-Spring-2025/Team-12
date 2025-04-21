@@ -14,8 +14,7 @@ const Navbar: React.FC = () => {
   const { isAuthenticated, username, logout } = useAuth();
 
   const handleLeaderboardClick = () => {
-    console.log("Leaderboard clicked");
-    // Add functionality here (e.g., navigate to the leaderboard page)
+    navigate("/leaderboard")
   };
 
   const handleChatClick = () => {
