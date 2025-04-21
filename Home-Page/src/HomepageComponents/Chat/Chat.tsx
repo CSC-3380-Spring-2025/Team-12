@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Chat.css";
 import { FaComments, FaUserPlus, FaArrowUp, FaBars } from 'react-icons/fa';
@@ -42,6 +42,24 @@ const mockRequests: FriendRequest[] = [
   },
 ];
 
+// Bot responses
+const botResponses = [
+  "That's interesting! Tell me more.",
+  "skibidi...i guess",
+  "Thanks for sharing that with me!",
+  "I'm just a bot, so maybe ask your mom...idk.",
+  "Cool! What else is on your mind?",
+  "you yap a lot",
+  "hehehe so funny :/",
+  "I'll pretend I understood that perfectly.",
+  "innterestingg",
+  "I'm learning so much from our conversation!"
+];
+
+const getRandomResponse = () => {
+  return botResponses[Math.floor(Math.random() * botResponses.length)];
+};
+
 const Chat: React.FC = () => {
   const navigate = useNavigate();
   const [showRequests, setShowRequests] = useState(false);
@@ -52,6 +70,22 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [searchInput, setSearchInput] = useState("");
+
+  // Function to send a bot response
+  const sendBotResponse = () => {
+    if (!activeChat) return;
+    
+    setTimeout(() => {
+      const botMessage: Message = {
+        id: Date.now().toString(),
+        sender: activeChat,
+        content: getRandomResponse(),
+        timestamp: new Date().toISOString(),
+      };
+      
+      setMessages(prevMessages => [...prevMessages, botMessage]);
+    }, 1000 + Math.random() * 2000); // Random delay between 1-3 seconds
+  };
 
   const handleSendFriendRequest = () => {
     if (searchInput.trim()) {
@@ -97,6 +131,9 @@ const Chat: React.FC = () => {
 
     setMessages([...messages, newMsg]);
     setNewMessage("");
+    
+    // Trigger bot response
+    sendBotResponse();
   };
 
   return (
