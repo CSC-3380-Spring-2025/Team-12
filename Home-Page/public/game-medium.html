@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Medium Mode</title>
-        <script src="https://polyfill.io/vs/polyfill.min.js?features=default"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <style type="text/css">
             html,
             body {
@@ -39,15 +39,17 @@
                 display: flex;
                 background-color: #000000;
                 color: white;
-                padding: 1rem 2rem;
+                padding: 0rem 2rem;
                 justify-content: space-between;
                 align-items: center;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            #game-title {
+            #game-title p, #game-title a{
                 margin: 0;
                 font-family: sans-serif;
+                color: white;
+                text-decoration: none;
                 font-size: 2rem;
                 font-weight: bold;
                 letter-spacing: 1px;
@@ -84,6 +86,7 @@
                 display: none;
                 width: fit-content;
                 padding: 30px 60px;
+                height: 100px;
                 border-radius: 15px;
                 font-size: 18px;
                 background-color: #000000;
@@ -93,6 +96,52 @@
                 z-index: 2;
                 left: 35%;
                 top: 35%;
+            }
+
+            #end-score{
+                color:#fff;
+                font-family: sans-serif;
+            }
+
+            #button-container {
+                display: flex;
+                gap: 10px; 
+                justify-content: center;
+                align-items: center;
+                margin-top: 10px;
+            }
+
+
+            #back p, #back a{
+                position: relative;
+                justify-content: center; 
+                align-items: center; 
+                width: fit-content; 
+                padding: 5px 5px;
+                border-radius: 10px; 
+                background-color: white; 
+                color: black;
+                text-decoration: none; 
+                font-family: sans-serif;
+                font-size: 22px; 
+                font-weight: bold;
+                cursor: pointer;
+            }
+
+            #try-again p, #try-again a{
+                position: relative;
+                justify-content: center; 
+                align-items: center; 
+                width: fit-content; 
+                padding: 5px 5px;
+                border-radius: 10px; 
+                background-color: white; 
+                color: black;
+                text-decoration: none; 
+                font-family: sans-serif;
+                font-size: 22px; 
+                font-weight: bold;
+                cursor: pointer;
             }
         </style>
         <script>
@@ -176,7 +225,7 @@
             function initialize(){
                 let hasGuessed = false; // tracks whether a guess has been made
 
-                document.getElementById("button").style.display = "none"; //makes continue button invincible
+                document.getElementById("button").style.display = "none"; //makes continue button invisible
                 const panorama = new google.maps.StreetViewPanorama(
                     document.getElementById("pano"), {
                         position: currentCoords,
@@ -210,12 +259,14 @@
 
                 windowLatLng = new google.maps.LatLng(0, 0);
 
-                infoWindow = new google.maps.InfoWindow({
-                    position: windowLatLng,
-                    content: "Look around and double click to make your guess",
-                });
+                if (round == 0){ // only show up on first round
+                    infoWindow = new google.maps.InfoWindow({
+                        position: windowLatLng,
+                        content: "Look around and double click to make your guess",
+                    });
 
-                infoWindow.open(map);
+                    infoWindow.open(map);
+                }
 
                 // listener for user answer, and handling what happens next
                 map.addListener("dblclick", (mapsMouseEvent) => {
@@ -271,12 +322,12 @@
                     document.getElementById("score").innerText = `Score: ${score}`;
 
                     if (round < 4){ // continue only shows for the first 4 rounds
-                        let button = document.getElementById("button");
-                        button.style.display = "block";
+                        let continueButton = document.getElementById("button");
+                        continueButton.style.display = "block";
                         document.getElementById("button").onclick = function() {nextround();};
                     } else if (round => 4){ // maybe add else so that an end game screen appears
                         let gameEnd = document.getElementById("gameend-header");
-                        document.getElementById("gameend-header").innerText = `Congrats! You got a score of: ${score}`;
+                        document.getElementById("end-score").innerText = `Congrats! You got a score of: ${score}`;
                         gameEnd.style.display = "block";
                     }
                 });
@@ -287,12 +338,24 @@
     </head>
     <body> 
       <div id="game-header">
-        <h1 id="game-title">GeoGuessr</h1>
+        <h1 id="game-title">
+            <p><a href="./">GeoGuessr</a></p>
+        </h1>
         <div id="score">Score: 0</div>
         <div id="button">Continue</div>
       </div>
         <div id="pano">
-            <div id="gameend-header">Congrats! You got a score of: 0</div>
+            <div id="gameend-header">
+                <div id="end-score">Congrats! You got a score of: 0</div>
+                <div id="button-container">
+                    <div id="back">
+                        <p><a href="./game">Back</a></p>
+                    </div>
+                    <div id="try-again">
+                        <p><a href="./game-medium.html">Try Again</a></p>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="map"></div>
         <script
