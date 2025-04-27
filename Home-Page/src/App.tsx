@@ -9,7 +9,7 @@ import { AuthProvider } from "./HomepageComponents/contexts/AuthContext";
 import ResetPassword from "./HomepageComponents/forgotPassword/ResetPassword";
 import Explore from "./HomepageComponents/Explore/Explore";
 import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
-
+import GhostTownMap from "./HomepageComponents/Explore/GhostTownMap";
 
 interface HeroData {
   text1: string;
@@ -58,6 +58,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/explore" element={<Explore />} />
+        <Route path="/map" element={<GhostTownMap />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
     </div>
