@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Chat.css";
-import { FaComments, FaUserPlus, FaArrowUp, FaBars } from 'react-icons/fa';
+import { FaComments, FaUserPlus, FaArrowUp, FaBars, FaTimes } from 'react-icons/fa';
 
 type User = {
   id: string;
@@ -21,6 +21,13 @@ type Message = {
   id: string;
   sender: User;
   content: string;
+  timestamp: string;
+};
+
+type Notification = {
+  id: string;
+  type: "accepted" | "rejected" | "sent";
+  userName: string;
   timestamp: string;
 };
 
@@ -70,6 +77,8 @@ const Chat: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   // Function to send a bot response
   const sendBotResponse = () => {
@@ -89,6 +98,14 @@ const Chat: React.FC = () => {
 
   const handleSendFriendRequest = () => {
     if (searchInput.trim()) {
+      const newNotification: Notification = {
+        id: Date.now().toString(),
+        type: "sent",
+        userName: searchInput,
+        timestamp: new Date().toISOString(),
+      };
+      
+      setNotifications(prev => [newNotification, ...prev]);
       alert(`Friend request sent to ${searchInput}`);
       setSearchInput("");
     }
@@ -99,11 +116,32 @@ const Chat: React.FC = () => {
     if (request) {
       setFriends([...friends, request.from]);
       setFriendRequests(friendRequests.filter((req) => req.id !== requestId));
+      
+      // Add notification
+      const newNotification: Notification = {
+        id: Date.now().toString(),
+        type: "accepted",
+        userName: request.from.name,
+        timestamp: new Date().toISOString(),
+      };
+      setNotifications(prev => [newNotification, ...prev]);
     }
   };
 
   const handleRejectRequest = (requestId: string) => {
-    setFriendRequests(friendRequests.filter((req) => req.id !== requestId));
+    const request = friendRequests.find((req) => req.id === requestId);
+    if (request) {
+      setFriendRequests(friendRequests.filter((req) => req.id !== requestId));
+      
+      // Add notification
+      const newNotification: Notification = {
+        id: Date.now().toString(),
+        type: "rejected",
+        userName: request.from.name,
+        timestamp: new Date().toISOString(),
+      };
+      setNotifications(prev => [newNotification, ...prev]);
+    }
   };
 
   const startChat = (friend: User) => {
@@ -134,6 +172,10 @@ const Chat: React.FC = () => {
     
     // Trigger bot response
     sendBotResponse();
+  };
+
+  const removeNotification = (id: string) => {
+    setNotifications(prev => prev.filter(notif => notif.id !== id));
   };
 
   return (
@@ -173,6 +215,15 @@ const Chat: React.FC = () => {
         </div>
         <div className="chat-right">
           <div 
+            className="notification-icon" 
+            onClick={() => setShowNotifications(!showNotifications)}
+          >
+            {notifications.length > 0 && (
+              <span className="notification-count">{notifications.length}</span>
+            )}
+            <span>🔔</span>
+          </div>
+          <div 
             className="friend-request-icon" 
             onClick={() => setShowRequests(!showRequests)}
           >
@@ -183,6 +234,53 @@ const Chat: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {showNotifications && (
+        <div className="notifications-popup">
+          <div className="notifications-header">
+            <h3>Notifications</h3>
+            <button 
+              className="close-notifications" 
+              onClick={() => setShowNotifications(false)}
+            >
+              <FaTimes />
+            </button>
+          </div>
+          <div className="notifications-list">
+            {notifications.length === 0 ? (
+              <p className="no-notifications">No new notifications</p>
+            ) : (
+              notifications.map((notification) => (
+                <div key={notification.id} className="notification-item">
+                  <div className="notification-content">
+                    {notification.type === "accepted" && (
+                      <p>{notification.userName} accepted your friend request!</p>
+                    )}
+                    {notification.type === "rejected" && (
+                      <p>{notification.userName} rejected your friend request.</p>
+                    )}
+                    {notification.type === "sent" && (
+                      <p>Friend request sent to {notification.userName}</p>
+                    )}
+                    <span className="notification-time">
+                      {new Date(notification.timestamp).toLocaleTimeString([], {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </span>
+                  </div>
+                  <button 
+                    className="dismiss-notification"
+                    onClick={() => removeNotification(notification.id)}
+                  >
+                    <FaTimes />
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="chat-container">
         <div className="sidebar left-sidebar">
@@ -207,6 +305,12 @@ const Chat: React.FC = () => {
           <div className="requests-popup">
             <div className="requests-header">
               <h3>Add Friend</h3>
+              <button 
+                className="close-requests" 
+                onClick={() => setShowRequests(false)}
+              >
+                <FaTimes />
+              </button>
             </div>
             <div className="send-request">
               <input
@@ -224,28 +328,32 @@ const Chat: React.FC = () => {
             </div>
             <div className="requests-list">
               <h3 className="requests-title">Friend Requests</h3>
-              {friendRequests.map((request) => (
-                <div key={request.id} className="request-item">
-                  <div className="request-info">
-                    <span className="requester-name">{request.from.name}</span>
-                    <p className="request-message">{request.message}</p>
+              {friendRequests.length === 0 ? (
+                <p className="no-requests">No pending requests</p>
+              ) : (
+                friendRequests.map((request) => (
+                  <div key={request.id} className="request-item">
+                    <div className="request-info">
+                      <span className="requester-name">{request.from.name}</span>
+                      <p className="request-message">{request.message}</p>
+                    </div>
+                    <div className="request-actions">
+                      <button
+                        className="accept-btn"
+                        onClick={() => handleAcceptRequest(request.id)}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className="reject-btn"
+                        onClick={() => handleRejectRequest(request.id)}
+                      >
+                        Reject
+                      </button>
+                    </div>
                   </div>
-                  <div className="request-actions">
-                    <button
-                      className="accept-btn"
-                      onClick={() => handleAcceptRequest(request.id)}
-                    >
-                      Accept
-                    </button>
-                    <button
-                      className="reject-btn"
-                      onClick={() => handleRejectRequest(request.id)}
-                    >
-                      Reject
-                    </button>
-                  </div>
-                </div>
-              ))}
+                ))
+              )}
             </div>
           </div>
         )}
