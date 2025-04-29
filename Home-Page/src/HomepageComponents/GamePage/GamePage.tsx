@@ -53,7 +53,7 @@ const GamePage = () => {
             <div className="game-box-row">
               <div className="game-box-small">EASY MODE</div>
               <div className="game-box-small"
-                onClick={() => window.location.href = "/game-medium.html"}>
+                onClick={() => navigate("/medium")}>
                 MEDIUM MODE</div>
               <div className="game-box-small">HARD MODE</div>
             </div>

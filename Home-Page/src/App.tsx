@@ -10,6 +10,7 @@ import ResetPassword from "./HomepageComponents/forgotPassword/ResetPassword";
 import Explore from "./HomepageComponents/Explore/Explore";
 import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
 import GhostTownMap from "./HomepageComponents/Explore/GhostTownMap";
+import Medium from "./HomepageComponents/GamePage/MediumMode/MediumMode"
 
 interface HeroData {
   text1: string;
@@ -60,6 +61,7 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/map" element={<GhostTownMap />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/medium" element={<Medium />} />
       </Routes>
     </div>
   );
