@@ -26,24 +26,24 @@ const Medium = () => {
       }, []);
     
     const locations = [
-        [{ lat: 59.320227, lng: 27.781221}, {country: 'Estonia'}], //Sirgala, Estonia
-        [{ lat: 51.276937, lng: 30.215941}, {country: 'Ukrane'}], //Chernobyl, Ukraine
-        [{ lat: 51.405972, lng: 30.054208}, {country: 'Ukrane'}], //Pripyat, Ukraine
+        [{ lat: 59.320227, lng: 27.781221}, {city: 'Sirgala', country: 'Estonia'}], //Sirgala, Estonia
+        [{ lat: 51.276937, lng: 30.215941}, {city: 'Chernobyl', country: 'Ukrane'}], //Chernobyl, Ukraine
+        [{ lat: 51.405972, lng: 30.054208}, {city: 'Pripyat', country: 'Ukrane'}], //Pripyat, Ukraine
         //Consonno, Olginate, Italy was here,
-        [{ lat: 39.765073, lng: 19.876701}, {country: 'Greece'}], //Old Perthia, Greece
+        [{ lat: 39.765073, lng: 19.876701}, {city: 'Old Perthia', country: 'Greece'}], //Old Perthia, Greece
         //Lindenfeld, Romania was here
         //Maraş(Varosha), Cyprus was here
-        [{ lat: 10.622093, lng: 104.026556}, {country: 'Cambodia'}], //Bokor Hill Station, Cambodia
-        [{ lat: 32.628102, lng: 129.737966}, {country: 'Japan'}], //Hashima Island, Japan
+        [{ lat: 10.622093, lng: 104.026556}, {city: 'Bokor Hill Station', country: 'Cambodia'}], //Bokor Hill Station, Cambodia
+        [{ lat: 32.628102, lng: 129.737966}, {city: 'Hashima Island', country: 'Japan'}], //Hashima Island, Japan
         //Kolmanskop, Namibia was here
-        [{ lat: -34.085117, lng: -70.381686}, {country: 'Chile'}], //Sewell Mining Town, Chile
-        [{ lat: -3.826791, lng: -55.494232}, {country: 'Brazil'}], //Fordlandia, Brazil 
-        [{ lat: 24.629086, lng: -82.874116}, {country: 'USA'}], //Fort Jefferson, Florida, USA
-        [{ lat: 36.900232, lng: -116.829255}, {country: 'USA'}], //Rhyolite, Nevada, USA
-        [{ lat: 38.881805, lng: -117.608465}, {country: 'USA'}], //Berlin, Nevada, USA
-        [{ lat: 38.213041, lng: -119.012700}, {country: 'USA'}], //Bodie, California, USA
-        [{ lat: 49.372173, lng: -109.281425}, {country: 'Canada'}], //Robsart, Saskatchewan, Canada
-        [{ lat: 51.231082, lng: -115.524376}, {country: 'Canada'}], //Bankhead, Banff, Alberta, Canada
+        [{ lat: -34.085117, lng: -70.381686}, {city: 'Sewel Mining Town', country: 'Chile'}], //Sewell Mining Town, Chile
+        [{ lat: -3.826791, lng: -55.494232}, {city: 'Fordlandia', country: 'Brazil'}], //Fordlandia, Brazil 
+        [{ lat: 24.629086, lng: -82.874116}, {city: 'Fort Jefferson, Florida', country: 'USA'}], //Fort Jefferson, Florida, USA
+        [{ lat: 36.900232, lng: -116.829255}, {city: 'Rhyolite, Nevada', country: 'USA'}], //Rhyolite, Nevada, USA
+        [{ lat: 38.881805, lng: -117.608465}, {city: 'Berlin, Nevada', country: 'USA'}], //Berlin, Nevada, USA
+        [{ lat: 38.213041, lng: -119.012700}, {city: 'Bodie, California', country: 'USA'}], //Bodie, California, USA
+        [{ lat: 49.372173, lng: -109.281425}, {city: 'Robsart, sakatchewan', country: 'Canada'}], //Robsart, Saskatchewan, Canada
+        [{ lat: 51.231082, lng: -115.524376}, {city: 'Bankhead, Banff, Alberta', country: 'Canada'}], //Bankhead, Banff, Alberta, Canada
     ]
 
     let currentPlace = locations[Math.floor(Math.random() * (locations.length))] //random spawn
@@ -201,7 +201,12 @@ const Medium = () => {
             let distanceWindow = new google.maps.InfoWindow({
             });
             
-            distanceWindow.setContent("You earned " + getScore() + " points.");
+            distanceWindow.setContent(`
+                <div>
+                  <strong>${currentPlace[1].city}, ${currentPlace[1].country}</strong><br/>
+                  You earned ${getScore()} points.
+                </div>
+              `);              
             distanceWindow.open(map, targetMarker);
 
             document.getElementById("score")!.innerText = `Score: ${score}`;
