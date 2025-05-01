@@ -51,7 +51,8 @@ const GamePage = () => {
         <div className="game-content">
           <div className="game-boxes">
             <div className="game-box-row">
-              <div className="game-box-small">EASY MODE</div>
+              <div className="game-box-small" onClick={() => navigate("/easy")}>
+              EASY MODE</div>
               <div className="game-box-small"
                 onClick={() => navigate("/medium")}>
                 MEDIUM MODE</div>

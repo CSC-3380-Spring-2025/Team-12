@@ -206,7 +206,8 @@ const Medium = () => {
                   <strong>${currentPlace[1].city}, ${currentPlace[1].country}</strong><br/>
                   You earned ${getScore()} points.
                 </div>
-              `);              
+              `);
+              
             distanceWindow.open(map, targetMarker);
 
             document.getElementById("score")!.innerText = `Score: ${score}`;
