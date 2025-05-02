@@ -1,0 +1,28 @@
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  z-index: -1; /* Ensure the background is behind other elements */
+}
+
+.fade-out {
+  opacity: 0; /* Fade out the current video */
+}
+
+.fade-in {
+  opacity: 1; /* Fade in the next video */
+}
+
+.hidden {
+  display: none; /* Completely hide the next video initially */
+}
+/* Add this to your global CSS (e.g., index.css) */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000; /* Fallback background color */
+}

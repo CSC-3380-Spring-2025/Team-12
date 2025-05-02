@@ -1,0 +1,37 @@
+.hero{
+    margin: 0px 120px;
+    margin-top: 270px;
+}
+.hero-text{
+    color: white;
+    font-size: 110px;
+    font-weight: 500;
+    line-height: 13px;
+
+}
+
+.hero-play-text {
+    display: flex;
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    width: fit-content; /* Adjust width to fit content */
+    margin: 70px auto 0; /* Center the element horizontally with margin */
+    padding: 10px 20px; /* Add padding for better clickability */
+    border-radius: 10px; /* Slightly rounded corners */
+    background-color: white; /* White background */
+    color: black; /* Black text color */
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .hero-play-text:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+    transform: scale(1.05); /* Slightly enlarge the text on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+  }
+  
+  .hero-play-text:active {
+    transform: scale(0.95); /* Slightly shrink the text on click */
+  }
