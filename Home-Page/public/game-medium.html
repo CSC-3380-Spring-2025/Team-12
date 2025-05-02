@@ -146,24 +146,24 @@
         </style>
         <script>
             const locations = [
-                [{ lat: 59.320227, lng: 27.781221}, {country: 'Estonia'}], //Sirgala, Estonia
-                [{ lat: 51.276937, lng: 30.215941}, {country: 'Ukrane'}], //Chernobyl, Ukraine
-                [{ lat: 51.406015, lng: 30.054290}, {country: 'Ukrane'}], //Pripyat, Ukraine
-                [{ lat: 45.784436, lng: 9.393244}, {country: 'Italy'}], //Consonno, Olginate, Italy
-                [{ lat: 39.765073, lng: 19.876701}, {country: 'Greece'}], //Old Perthia, Greece
-                [{ lat: 45.313958, lng: 22.110755}, {country: 'Romania'}], //Lindenfeld, Romania
-                [{ lat: 35.103788, lng: 33.962678}, {country: 'Cyrpus'}], //Maraş(Varosha), Cyprus
-                [{ lat: 10.622093, lng: 104.026556}, {country: 'Cambodia'}], //Bokor Hill Station, Cambodia
-                [{ lat: 32.628102, lng: 129.737966}, {country: 'Japan'}], //Hashima Island, Japan
-                [{ lat: -26.702491, lng: 15.230167}, {country: 'Namibia'}], //Kolmanskop, Namibia
-                [{ lat: -34.085117, lng: -70.381686}, {country: 'Chile'}], //Sewell Mining Town, Chile
-                [{ lat: -3.826791, lng: -55.494232}, {country: 'Brazil'}], //Fordlandia, Brazil 
-                [{ lat: 24.629086, lng: -82.874116}, {country: 'USA'}], //Fort Jefferson, Florida, USA
-                [{ lat: 36.900232, lng: -116.829255}, {country: 'USA'}], //Rhyolite, Nevada, USA
-                [{ lat: 38.881805, lng: -117.608465}, {country: 'USA'}], //Berlin, Nevada, USA
-                [{ lat: 38.213041, lng: -119.012700}, {country: 'USA'}], //Bodie, California, USA
-                [{ lat: 49.372173, lng: -109.281425}, {country: 'Canada'}], //Robsart, Saskatchewan, Canada
-                [{ lat: 51.231082, lng: -115.524376}, {country: 'Canada'}], //Bankhead, Banff, Alberta, Canada
+                [{ lat: 59.320227, lng: 27.781221}, { name: 'Sirgala', country: 'Estonia'}], //Sirgala, Estonia
+                [{ lat: 51.276937, lng: 30.215941}, { name: 'Chernobyl', country: 'Ukrane'}], //Chernobyl, Ukraine
+                [{ lat: 51.406015, lng: 30.054290}, { name: 'Pripyat', country: 'Ukrane'}], //Pripyat, Ukraine
+                [{ lat: 45.784436, lng: 9.393244}, { name: 'Consonno, Olginate', country: 'Italy'}], //Consonno, Olginate, Italy
+                [{ lat: 39.765073, lng: 19.876701}, { name: 'Old Perthia', country: 'Greece'}], //Old Perthia, Greece
+                [{ lat: 45.313958, lng: 22.110755}, { name: 'Lindenfeld', country: 'Romania'}], //Lindenfeld, Romania
+                [{ lat: 35.103788, lng: 33.962678}, { name: 'Maras(Varosha)', country: 'Cyrpus'}], //Maraş(Varosha), Cyprus
+                [{ lat: 10.622093, lng: 104.026556}, { name: 'Borkor Hill Station', country: 'Cambodia'}], //Bokor Hill Station, Cambodia
+                [{ lat: 32.628102, lng: 129.737966}, { name: 'Hashima Island', country: 'Japan'}], //Hashima Island, Japan
+                [{ lat: -26.702491, lng: 15.230167}, { name: 'Kolmanskop', country: 'Namibia'}], //Kolmanskop, Namibia
+                [{ lat: -34.085117, lng: -70.381686}, { name: 'Sewell Mining Town', country: 'Chile'}], //Sewell Mining Town, Chile
+                [{ lat: -3.826791, lng: -55.494232}, { name: 'Fordlandia', country: 'Brazil'}], //Fordlandia, Brazil 
+                [{ lat: 24.629086, lng: -82.874116}, { name: 'Fort Jefferson, Florida', country: 'USA'}], //Fort Jefferson, Florida, USA
+                [{ lat: 36.900232, lng: -116.829255}, { name: 'Rhyolite, Nevada', country: 'USA'}], //Rhyolite, Nevada, USA
+                [{ lat: 38.881805, lng: -117.608465}, { name: 'Berlin, Nevada', country: 'USA'}], //Berlin, Nevada, USA
+                [{ lat: 38.213041, lng: -119.012700}, { name: 'Bodie, California', country: 'USA'}], //Bodie, California, USA
+                [{ lat: 49.372173, lng: -109.281425}, { name: 'Robsart, Saskatchewan', country: 'Canada'}], //Robsart, Saskatchewan, Canada
+                [{ lat: 51.231082, lng: -115.524376}, { name: 'Bankhead, Banff, Alberta', country: 'Canada'}], //Bankhead, Banff, Alberta, Canada
             ]
 
             let currentPlace = locations[Math.floor(Math.random() * (locations.length))] //random spawn
@@ -290,7 +290,6 @@
                     });
 
                     targetMarker.setMap(map);
-
                     distance = guessDistance();
 
                     infoWindow.close();
@@ -316,7 +315,7 @@
                     distanceWindow = new google.maps.InfoWindow({
                     });
                     
-                    distanceWindow.setContent("You earned " + getScore() + " points.");
+                    distanceWindow.setContent(`${currentPlace[1].name}, ${currentPlace[1].country}<br>You earned ${getScore()} points.`);
                     distanceWindow.open(map, targetMarker);
 
                     document.getElementById("score").innerText = `Score: ${score}`;
