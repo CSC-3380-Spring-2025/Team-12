@@ -12,6 +12,7 @@ import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
 import GhostTownMap from "./HomepageComponents/Explore/GhostTownMap";
 import Medium from "./HomepageComponents/GamePage/MediumMode/MediumMode";
 import Easy from "./HomepageComponents/GamePage/EasyMode/EasyMode";
+import Lsu from "./HomepageComponents/GamePage/LsuMode/LsuMode";
 
 interface HeroData {
   text1: string;
@@ -64,6 +65,7 @@ function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/medium" element={<Medium />} />
         <Route path="/easy" element={<Easy />} />
+        <Route path="/lsu" element={<Lsu />} />
       </Routes>
     </div>
   );
