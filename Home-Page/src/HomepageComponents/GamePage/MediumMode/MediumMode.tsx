@@ -52,6 +52,16 @@ const Medium = () => {
     let round = 0
     let score = 0
 
+    const tryAgain = document.getElementById("try-again");
+
+    function handleClick() {
+        window.location.reload();
+    }
+
+    if (tryAgain){
+        tryAgain!.addEventListener("click", handleClick);
+    }
+
     function nextround() {
         if (round < 5) { 
             round++; // increment round number
@@ -244,7 +254,7 @@ const Medium = () => {
                     <div id="back" onClick={() => navigate("/game")}>
                         Back
                     </div>
-                    <div id="try-again" onClick={() => navigate("/medium")}>
+                    <div id="try-again" onClick={handleClick}>
                         Try Again
                     </div>
                 </div>

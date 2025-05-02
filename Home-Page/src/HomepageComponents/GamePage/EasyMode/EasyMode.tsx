@@ -116,7 +116,17 @@ const Easy = () => {
             answerContainer.appendChild(choice);
         });
     }
-    
+
+    const tryAgain = document.getElementById("try-again");
+
+    function handleClick() {
+        window.location.reload();
+    }
+
+    if (tryAgain){
+        tryAgain!.addEventListener("click", handleClick);
+    }
+
 
     function nextround() {
         round++; // increment round number
@@ -190,7 +200,7 @@ const Easy = () => {
                         <div id="back" onClick={() => navigate("/game")}>
                             Back
                         </div>
-                        <div id="try-again" onClick={() => navigate("/easy")}>
+                        <div id="try-again" onClick={handleClick}>
                             Try Again
                         </div>
                     </div>
