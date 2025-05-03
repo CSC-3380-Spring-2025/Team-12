@@ -17,5 +17,5 @@
         "@assets/*": ["src/assets/*"] // Alias for the assets folder
       }
     },
-    "include": ["src/**/*"] // Include all files in the src directory
+    "include": ["src/**/*", "src/declarations.d.ts"] // Include all files in the src directory
   }
