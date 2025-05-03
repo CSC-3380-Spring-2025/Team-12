@@ -9,7 +9,7 @@ import { AuthProvider } from "./HomepageComponents/contexts/AuthContext";
 import ResetPassword from "./HomepageComponents/forgotPassword/ResetPassword";
 import Explore from "./HomepageComponents/Explore/Explore";
 import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
-import HardMode from "./HardMode/HardMode";
+import HardMode from "./HomepageComponents/GamePage/HardMode/HardMode";
 
 
 interface HeroData {

@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./HardMode.css";
 
 // import audio files from assets
-import evilLaugh from "../assets/evilLaugh.mp3";
-import horrorBackgroundMusic from "../assets/horrorBackgroundMusic.mp3";
+import evilLaugh from "../../../assets/evilLaugh.mp3";
+import horrorBackgroundMusic from "../../../assets/horrorBackgroundMusic.mp3";
 
 declare global {
   interface Window {
