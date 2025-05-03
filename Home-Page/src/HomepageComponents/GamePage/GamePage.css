@@ -5,13 +5,14 @@
   background-color: #f0f0f0;
 }
 
-
+/* ——— HEADER ——— */
 .game-header {
-  background-color: #000000;
-  color: white;
+  background-color: #000;
+  color: #fff;
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;           /* vertically center title + nav */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -22,19 +23,19 @@
   letter-spacing: 1px;
 }
 
-
+/* Nav wrapper no longer grows; items sit at far right */
 .game-nav-container {
-  flex-grow: 1;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;     /* push nav items all the way right */
+  align-items: center;
+  /* removed flex-grow */
 }
 
+/* Two columns: HOME | PLAYER: Guest */
 .game-nav-columns {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  width: 100%;
-  max-width: 800px; 
+  grid-template-columns: auto auto;  /* exactly two slots */
+  gap: 2rem;                         /* space between them */
 }
 
 .game-nav-text {
@@ -50,10 +51,10 @@
   color: #b0b0b0;
 }
 
+/* PLAYER info sits in second grid cell */
 .player-info {
   display: flex;
   gap: 0.5rem;
-  justify-content: center;
   align-items: center;
 }
 
@@ -65,50 +66,7 @@
   font-weight: bold;
 }
 
-.game-box-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
-}
-
-.game-box-small {
-  background-color: #000000;
-  color: white;
-  height: 150px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.game-box-large {
-  background-color: #000000;
-  color: white;
-  height: 250px; /* Increased from 200px to 250px */
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.3s ease; 
-}
-
-
-.game-box-row:last-child {
-  grid-template-columns: 1fr 1fr; /* Only for bottom row */
-  gap: 2.5rem; 
-}
-
-.game-box-small:hover, 
-.game-box-large:hover {
-  background-color: #333;
-}
-
-
+/* ——— LAYOUT & SIDEBAR ——— */
 .game-layout {
   display: flex;
   flex: 1;
@@ -116,7 +74,7 @@
 
 .game-sidebar {
   width: 250px;
-  background-color: #000000;
+  background-color: #000;
   padding: 1rem;
 }
 
@@ -136,8 +94,51 @@
   color: #b0b0b0;
 }
 
+/* ——— CONTENT BOXES ——— */
 .game-content {
   flex: 1;
   padding: 4rem 2rem 2rem;
   background-color: white;
+}
+
+.game-box-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.game-box-small {
+  background-color: #000;
+  color: white;
+  height: 150px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.game-box-large {
+  background-color: #000;
+  color: white;
+  height: 250px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.game-box-row:last-child {
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+.game-box-small:hover,
+.game-box-large:hover {
+  background-color: #333;
 }
