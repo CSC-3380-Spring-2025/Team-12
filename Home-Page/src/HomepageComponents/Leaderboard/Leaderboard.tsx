@@ -20,10 +20,6 @@ const Leaderboard: React.FC = () => {
 
       <div className="leaderboard-filters">
         <button>All-Time</button>
-        <button>Monthly</button>
-        <button>Weekly</button>
-        <button>Daily</button>
-        <button>Friends</button>
       </div>
 
       <div className="leaderboard-columns">
