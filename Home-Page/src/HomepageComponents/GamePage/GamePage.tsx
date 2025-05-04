@@ -58,7 +58,7 @@ const GamePage = () => {
             <div className="game-box-row">
               <div className="game-box-small">EASY MODE</div>
               <div className="game-box-small"
-                onClick={() => window.location.href = "/game-medium.html"}>
+                onClick={() => navigate("/game/MediumMode")}>
                 MEDIUM MODE</div>
               <div className="game-box-small"
               onClick={() => navigate("/game/HardMode")}>
