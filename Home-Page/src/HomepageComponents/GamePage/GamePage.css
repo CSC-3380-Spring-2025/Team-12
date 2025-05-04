@@ -84,6 +84,25 @@
   cursor: pointer;
 }
 
+.easy-mode {
+  background-image: url('../../assets/easy-mode - Copy.png');
+}
+
+.medium-mode {
+  background-image: url('../../assets/medium-mode.png');
+}
+
+.hard-mode {
+  background-image: url('../../assets/hard-mode.png');
+}
+
+.special-mode1 {
+  background-image: url('../../assets/special-mode1.png');
+}
+
+.special-mode2 {
+  background-image: url('../../assets/special-mode2.png');
+}
 .game-box-large {
   background-color: #000000;
   color: white;
