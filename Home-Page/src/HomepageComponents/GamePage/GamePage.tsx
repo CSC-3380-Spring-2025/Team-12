@@ -7,6 +7,22 @@ const GamePage = () => {
   const navigate = useNavigate();
   const { username } = useAuth();
 
+  const handleRandomClick = () => {
+    const gameModes = [
+      "/game/easy",         // Make sure you have a route for this
+      "/game-medium.html",  // Direct link to static HTML
+      "/game/HardMode",     // React route
+      "/game/special1",     // Custom special route
+      "/game/special2"      // Custom special route
+    ];
+    const randomMode = gameModes[Math.floor(Math.random() * gameModes.length)];
+    if (randomMode.endsWith(".html")) {
+      window.location.href = randomMode;
+    } else {
+      navigate(randomMode);
+    }
+  };
+
   return (
     <div className="game-page">
       {/* Black Header */}
@@ -20,7 +36,12 @@ const GamePage = () => {
             >
               HOME
             </div>
-            <div className="game-nav-text">PLAY WITH FRIENDS</div>
+            <div
+              className="game-nav-text"
+              onClick={handleRandomClick}
+            >
+              Random
+            </div>
             <div className="player-info">
               <span className="player-label">PLAYER:</span>
               <span className="player-name">{username || 'Guest'}</span>
@@ -56,17 +77,28 @@ const GamePage = () => {
         <div className="game-content">
           <div className="game-boxes">
             <div className="game-box-row">
-              <div className="game-box-small">EASY MODE</div>
+              <div className="game-box-small"
+                onClick={() => navigate("/game/easy")}>
+                EASY MODE
+              </div>
               <div className="game-box-small"
                 onClick={() => window.location.href = "/game-medium.html"}>
-                MEDIUM MODE</div>
+                MEDIUM MODE
+              </div>
               <div className="game-box-small"
-              onClick={() => navigate("/game/HardMode")}>
-                HARD MODE</div>
+                onClick={() => navigate("/game/HardMode")}>
+                HARD MODE
+              </div>
             </div>
             <div className="game-box-row">
-              <div className="game-box-large">SPECIAL MODES</div>
-              <div className="game-box-large">SPECIAL MODES</div>
+              <div className="game-box-large"
+                onClick={() => navigate("/game/special1")}>
+                SPECIAL MODES
+              </div>
+              <div className="game-box-large"
+                onClick={() => navigate("/game/special2")}>
+                SPECIAL MODES
+              </div>
             </div>
           </div>
         </div>
