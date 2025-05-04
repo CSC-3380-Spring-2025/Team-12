@@ -56,17 +56,17 @@ const GamePage = () => {
         <div className="game-content">
           <div className="game-boxes">
             <div className="game-box-row">
-              <div className="game-box-small">EASY MODE</div>
-              <div className="game-box-small"
+              <div className="game-box-small easy-mode">EASY MODE</div>
+              <div className="game-box-small medium-mode"
                 onClick={() => window.location.href = "/game-medium.html"}>
                 MEDIUM MODE</div>
-              <div className="game-box-small"
+              <div className="game-box-small hard-mode"
               onClick={() => navigate("/game/HardMode")}>
                 HARD MODE</div>
             </div>
             <div className="game-box-row">
-              <div className="game-box-large">SPECIAL MODES</div>
-              <div className="game-box-large">SPECIAL MODES</div>
+              <div className="game-box-large special-mode1">SPECIAL MODES</div>
+              <div className="game-box-large special-mode2">SPECIAL MODES</div>
             </div>
           </div>
         </div>
