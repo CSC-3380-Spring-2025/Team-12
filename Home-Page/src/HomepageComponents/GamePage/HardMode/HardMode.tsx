@@ -198,6 +198,16 @@ const Hard = () => {
   let round = 0;
   let score = 0;
 
+  const tryAgain = document.getElementById("try-again");
+
+    function handleClick() {
+        window.location.reload();
+    }
+
+    if (tryAgain){
+        tryAgain!.addEventListener("click", handleClick);
+    }
+
   // Function to make a random guess when timer hits 0
   function makeRandomGuess() {
     if (hasGuessedRef.current || !mapRef.current) return;
@@ -350,8 +360,12 @@ const Hard = () => {
     if (round < 4) {
       // continue only shows for the first 4 rounds
       const continueButton = document.getElementById("button");
+      const timedisplay = document.getElementById("timer");
+      if(timedisplay){
+        timedisplay.style.display = "none";
+      }
       continueButton!.style.display = "block";
-      document.getElementById("button")!.onclick = function () {
+      continueButton!.onclick = function () {
         nextround();
       };
     } else if (round >= 4) {
@@ -365,6 +379,11 @@ const Hard = () => {
 
   function initialize() {
     hasGuessedRef.current = false; // reset guess state
+
+    const timerdisplay = document.getElementById("timer");
+    if(timerdisplay){
+      timerdisplay.style.display = "block";
+    }
 
     // Reset and start timer for new round
     setTimeLeft(20);
@@ -477,7 +496,7 @@ const Hard = () => {
             <div id="back" onClick={() => navigate("/game")}>
               Back
             </div>
-            <div id="try-again" onClick={() => navigate("/game/HardMode")}>
+            <div id="try-again" onClick={handleClick}>
               Try Again
             </div>
           </div>
