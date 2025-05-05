@@ -12,9 +12,11 @@ body {
   }
   
 #pano {
+    display: flex;
     flex: 1;
     width: 100%;
     position: relative;
+    background: #000000;
 }
   
 .gm-iv-address {
@@ -23,16 +25,16 @@ display: none;
 
 #map {
     position: absolute;
-    top: 60%;
-    left: 73%;
+    top: 25%;
+    left: 700px;
     z-index: 5;
     background-color: #fff;
     padding: 5px;
     text-align: center;
     line-height: 30px;
     padding-left: 10px;
-    height: 35%;
-    width: 25%;
+    height: 70%;
+    width: 52%;
 }
 
 #game-header {
@@ -92,8 +94,8 @@ display: none;
     background-color: #000000;
     color: #ffffff;
     font-family: sans-serif;
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    z-index: 200;
     left: 35%;
     top: 35%;
 }
@@ -143,4 +145,11 @@ display: none;
     font-size: 22px; 
     font-weight: bold;
     cursor: pointer;
+}
+
+#instructions{
+    position: absolute;
+    font-size: 18px;
+    left: 700px;
+    color: #fff;
 }
