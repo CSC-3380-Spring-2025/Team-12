@@ -12,6 +12,7 @@ import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
 import GhostTownMap from "./HomepageComponents/Explore/GhostTownMap";
 import HardMode from "./HomepageComponents/GamePage/HardMode/HardMode";
 import MediumMode from "./HomepageComponents/GamePage/MediumMode/MediumMode";
+import SpecialMode2 from "./HomepageComponents/GamePage/SpecialMode2/SpecialMode2";
 
 
 interface HeroData {
@@ -59,6 +60,7 @@ function App() {
         <Route path="/game" element={<GamePage />} />
         <Route path="/game/MediumMode" element={<MediumMode />} />
         <Route path="/game/HardMode" element={<HardMode />} /> 
+        <Route path="/game/NoPanMode" element={<SpecialMode2 />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/explore" element={<Explore />} />
