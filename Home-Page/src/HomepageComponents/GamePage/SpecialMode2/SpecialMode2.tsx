@@ -245,7 +245,7 @@ const NoPanMode = () => {
             <img src={imageUrl} alt="" />
             <div id="instructions">Take a look at the image and double click on the map when you're ready!</div>
         </div>
-        <div id="specialMap"></div>
+        <div id="map2"></div>
         <div id="gameend-header">
                 <div id="end-score">Congrats! You got a score of: 0</div>
                 <div id="button-container">
