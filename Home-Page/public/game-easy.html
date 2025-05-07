@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Easy Mode GeoGuessr</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+        html, body {
+            max-height: 100vh;
+            overflow: hidden;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        #pano {
+            height: 90%;
+            width: 100%;
+        }
+        #choices {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: black;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+        }
+        .choice-button {
+            background-color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+        #score {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: sans-serif;
+            font-size: 20px;
+        }
+        #result {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: yellow;
+            font-family: sans-serif;
+            font-size: 24px;
+            display: none;
+        }
+        #popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7); /* semi-transparent black */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#popup-content {
+    background: white;
+    padding: 30px 50px;
+    border-radius: 10px;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 22px;
+}
+
+#popup-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+}
+#back-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
+
+
+    </style>
+    <script>
+        const locations = [
+            [{ lat: 59.320227, lng: 27.781221}, { name: 'Sirgala', country: 'Estonia'}],
+            [{ lat: 51.276937, lng: 30.215941}, { name: 'Chernobyl', country: 'Ukraine'}],
+            [{ lat: 51.406015, lng: 30.054290}, { name: 'Pripyat', country: 'Ukraine'}],
+            [{ lat: 45.784436, lng: 9.393244}, { name: 'Consonno, Italy', country: 'Italy'}],
+            [{ lat: 39.765073, lng: 19.876701}, { name: 'Old Perthia', country: 'Greece'}],
+            [{ lat: 45.313958, lng: 22.110755}, { name: 'Lindenfeld', country: 'Romania'}],
+            [{ lat: 35.103788, lng: 33.962678}, { name: 'Maras (Varosha)', country: 'Cyprus'}],
+            [{ lat: 32.628102, lng: 129.737966}, { name: 'Hashima Island', country: 'Japan'}],
+            [{ lat: -26.702491, lng: 15.230167}, { name: 'Kolmanskop', country: 'Namibia'}],
+            [{ lat: 24.629086, lng: -82.874116}, { name: 'Fort Jefferson', country: 'USA'}],
+        ];
+
+        let currentPlace;
+        let choices = [];
+        let score = 0;
+        let rounds = 0;
+
+        function initialize() {
+            document.getElementById("result").style.display = "none";
+            const randomIndex = Math.floor(Math.random() * locations.length);
+            currentPlace = locations[randomIndex];
+
+            const panorama = new google.maps.StreetViewPanorama(
+                document.getElementById("pano"), {
+                    position: currentPlace[0],
+                    pov: { heading: 34, pitch: 10 },
+                    panControl: false,
+                    linksControl: false,
+                    showRoadLabels: false,
+                    fullscreenControl: false,
+                }
+            );
+
+            generateChoices(randomIndex);
+        }
+
+        function generateChoices(correctIndex) {
+            choices = [locations[correctIndex]];
+
+            while (choices.length < 4) {
+                const random = locations[Math.floor(Math.random() * locations.length)];
+                if (!choices.includes(random)) {
+                    choices.push(random);
+                }
+            }
+
+            shuffleArray(choices);
+
+            const choiceButtons = document.getElementById("choices");
+            choiceButtons.innerHTML = "";
+
+            choices.forEach((choice, index) => {
+                const btn = document.createElement("button");
+                btn.className = "choice-button";
+                btn.innerText = `${choice[1].name}, ${choice[1].country}`;
+                btn.onclick = () => handleChoice(choice);
+                choiceButtons.appendChild(btn);
+            });
+        }
+
+        function handleChoice(selectedChoice) {
+    const selectedName = selectedChoice[1].name;
+    const selectedCountry = selectedChoice[1].country;
+    const correctName = currentPlace[1].name;
+    const correctCountry = currentPlace[1].country;
+
+    const popup = document.getElementById("popup");
+    const popupMessage = document.getElementById("popup-message");
+    const popupButton = document.getElementById("popup-button");
+
+    if (selectedName === correctName && selectedCountry === correctCountry) {
+        score += 5000;
+        popupMessage.innerText = "✅ Correct! +5000 points!";
+    } else {
+        popupMessage.innerText = `❌ Wrong! It was ${correctName}, ${correctCountry}.`;
+    }
+
+    document.getElementById("score").innerText = `Score: ${score}`;
+    popup.style.display = "flex";
+
+    popupButton.onclick = () => {
+        popup.style.display = "none";
+        rounds++;
+        if (rounds < 5) {
+            initialize(); // Next round only starts after clicking OK
+        } else {
+            popupMessage.innerText = `🏁 Game Over! Final score: ${score}`;
+            popup.style.display = "flex";
+            popupButton.innerText = "Play Again";
+            popupButton.onclick = () => window.location.reload();
+        }
+    };
+}
+
+
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        function goBackToGame() {
+    window.location.href = "./game"; // Replace with actual game mode page
+}
+
+    </script>
+</head>
+<body>
+    <div id="score">Score: 0</div>
+    <div id="result"></div>
+    <div id="pano"></div>
+    <div id="choices"></div>
+    <div id="popup" style="display: none;">
+        <div id="popup-content">
+            <p id="popup-message"></p>
+            <button id="popup-button">OK</button>
+        </div>
+    </div>
+    <button id="back-button" onclick="goBackToGame()">Back to Game Mode</button>
+    <div id="Back-button">
+
+    </div>
+
+    
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuc49pvnI2li4asU52IHy38PgUuGRe_Nc&callback=initialize&v=weekly" defer></script>
+</body>
+</html>
