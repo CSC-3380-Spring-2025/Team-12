@@ -5,6 +5,7 @@ Communications Lead: Adam Brown (adambrown00)\
 Git Master: Benny Ly (bly3)\
 Design Lead: Truong Nguyen (TruongNguyen0607)\
 Quality Assurance Tester: Layla Jones (ljon188)
+Quality Assurance Tester: Malachi Folwer (malachi50)
 
 # About Our Software
 
