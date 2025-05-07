@@ -89,7 +89,8 @@ const GamePage = () => {
                 HARD MODE</div>
             </div>
             <div className="game-box-row">
-              <div className="game-box-large">SPECIAL MODES</div>
+              <div className="game-box-large"
+              onClick={() => navigate("/lsu")}>SPECIAL MODES</div>
               <div className="game-box-large"
               onClick={() => navigate("/game/NoPanMode")}>
                 NO PAN MODE</div>
