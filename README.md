@@ -15,12 +15,11 @@ Ghost Town GeoGuessr is a web game that adds a spooky twist on Google's GeoGuess
 # Important Links
 Kanban Board: https://github.com/orgs/CSC-3380-Spring-2025/projects/12
 Designs: [https://www.figma.com/files/project/329596291]\
-Styles Guide(s): [link]
 
 # How to Run Dev and Test Environment
 
 ## Dependencies
-"@react-google-maps/api": "^2.20.6",
+    "@react-google-maps/api": "^2.20.6",
     "leaflet": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
