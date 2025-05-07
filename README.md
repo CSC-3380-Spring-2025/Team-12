@@ -17,7 +17,7 @@ Describe a little about what the project is about here.
 - Windows
 # Important Links
 Kanban Board: [link]\
-Designs: [link]\
+Designs: [https://www.figma.com/files/project/329596291]\
 Styles Guide(s): [link]
 
 # How to Run Dev and Test Environment
