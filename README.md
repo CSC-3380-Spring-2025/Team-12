@@ -54,5 +54,5 @@ https://docs.docker.com/get-started/get-docker/
 
 
 ## Commands
-type "cd home-page" in VSCode terminal then type "npm install vite" then type "npm run dev" you should then be able to run the frontend to run the backend click the "+" icon to open a new terminal while your frontend is still running go type "cd registerlogin" and run: "docker-compose down",
+type "cd home-page" in VSCode terminal then type "npm install vite" then type "npm run dev" you should then be able to run the frontend to run the backend click the "+" icon to open a new terminal while your frontend is still running go type "cd Backend", "cd Registerlogin" and run: "docker-compose down",
 "docker-compose up -d","docker-compose exec backend python manage.py migrate", "docker-compose up". After running that go back you your frontend and now the backend and frontend should be properly working. 
