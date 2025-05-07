@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "./hero.css";
+import evilLaugh from "../../assets/evil-laugh.mp3";
 
 interface HeroData {
   text1: string;
@@ -34,7 +35,9 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount, setHeroCount }) => {
       return () => clearTimeout(timeout);
     } else if (typingIndex < fullText1.length + fullText2.length) {
       const timeout = setTimeout(() => {
-        setDisplayText2((prev) => prev + fullText2[typingIndex - fullText1.length]);
+        setDisplayText2(
+          (prev) => prev + fullText2[typingIndex - fullText1.length]
+        );
         setTypingIndex((prev) => prev + 1);
       }, 100);
 
@@ -52,9 +55,11 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount, setHeroCount }) => {
   const handlePlayClick = () => {
     // Play audio
     if (audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      audioRef.current
+        .play()
+        .catch((e) => console.log("Audio play failed:", e));
     }
-    
+
     // Navigate to game page
     navigate("/game");
   };
@@ -70,8 +75,8 @@ const Hero: React.FC<HeroProps> = ({ heroData, heroCount, setHeroCount }) => {
         Play
       </div>
 
-      {/* Audio - make sure the file exists in public/sounds */}
-      <audio ref={audioRef} src="/sounds/evil-laugh.mp3"></audio>
+      {/* Updated Audio Reference */}
+      <audio ref={audioRef} src={evilLaugh}></audio>
     </div>
   );
 };
