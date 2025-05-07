@@ -8,15 +8,16 @@ Quality Assurance Tester: Layla Jones (ljon188)
 
 # About Our Software
 
-Ghost Town GeoGuessr is a web game that adds a spooky twist on Google's GeoGuessr web game. It is a map based guessing game where you have to guess haunted and abandoned locations
+Ghost Town GeoGuessr is a web game that adds a spooky twist to Google's GeoGuessr web game. It is a map-based guessing game where you have to guess haunted and abandoned locations
 ## Platforms Tested on
 - MacOS
 - Windows
 # Important Links
 Kanban Board: https://github.com/orgs/CSC-3380-Spring-2025/projects/12
 Designs: [https://www.figma.com/files/project/329596291]\
+Code Standard: https://google.github.io/styleguide/tsguide.html
 
-# How to Run Dev and Test Environment
+# How to Run Dev and Test Environments
 
 ## Dependencies
     "@react-google-maps/api": "^2.20.6",
