@@ -47,6 +47,8 @@ Code Standard: https://google.github.io/styleguide/tsguide.html
     mysqlclient==2.2.7
     sqlparse==0.5.3
     Python 3.13.2
+    Docker
+    Docker Container
 ### Downloading Dependencies
 https://docs.docker.com/get-started/get-docker/
 
