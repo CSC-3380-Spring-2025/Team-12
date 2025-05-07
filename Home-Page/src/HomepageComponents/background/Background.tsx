@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import './Background.css';
-import video1 from '@assets/203-135848350_small.mp4'; // Using alias
-import video2 from '@assets/76005-557381111_small.mp4'; // Using alias
-import video3 from '@assets/108415-680697565_small.mp4'; // Using alias
+import video1 from '@assets/203-135848350_small.mp4'; 
+import video2 from '@assets/76005-557381111_small.mp4'; 
+import video3 from '@assets/108415-680697565_small.mp4'; 
 
 interface BackgroundProps {
   heroCount: number;
@@ -14,7 +14,6 @@ const Background: React.FC<BackgroundProps> = ({ heroCount, onVideoEnd }) => {
   const currentVideoRef = useRef<HTMLVideoElement>(null); // Reference to the current video
   const nextVideoRef = useRef<HTMLVideoElement>(null); // Reference to the next video
 
-  // List of videos
   const videos: string[] = [video1, video2, video3];
   const currentVideo: string = videos[heroCount];
   const nextVideo: string = videos[(heroCount + 1) % videos.length];
@@ -36,20 +35,19 @@ const Background: React.FC<BackgroundProps> = ({ heroCount, onVideoEnd }) => {
       currentVideoElement.addEventListener("ended", handleVideoEnd);
     }
 
-    // Cleanup event listener
     return () => {
       if (currentVideoElement) {
         currentVideoElement.removeEventListener("ended", handleVideoEnd);
       }
     };
-  }, [heroCount]); // Add heroCount to the dependency array
+  }, [heroCount]);
 
   // Preload the next video
   useEffect(() => {
     if (nextVideoRef.current) {
       nextVideoRef.current.load();
     }
-  }, [nextVideo]); // Add nextVideo to the dependency array
+  }, [nextVideo]); 
 
   return (
     <>
