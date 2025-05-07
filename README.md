@@ -20,33 +20,37 @@ Styles Guide(s): [link]
 # How to Run Dev and Test Environment
 
 ## Dependencies
-- List all dependencies here
-- Don't forget to include versions
+"@react-google-maps/api": "^2.20.6",
+    "leaflet": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
+    "react-leaflet": "^4.2.1",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router": "^7.4.1",
+    "react-router-dom": "^7.4.1"
+    "@types/leaflet": "^1.9.17",
+    "@types/node": "^22.14.1",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.8.3",
+    "vite": "^4.5.14"
+    asgiref==3.8.1
+    
+    Django==5.1.7
+    django-cors-headers==4.7.0
+    mysqlclient==2.2.7
+    sqlparse==0.5.3
+    Python 3.13.2
 ### Downloading Dependencies
-Describe where to download the dependencies here. Some will likely require a web download. Provide links here. For IDE extensions, make sure your project works with the free version of them, and detail which IDE(s) these are available in. 
+https://docs.docker.com/get-started/get-docker/
+
 
 ## Commands
-Describe how the commands and process to launch the project on the main branch in such a way that anyone working on the project knows how to check the affects of any code they add.
-
-```sh
-Example terminal command syntax
-```
-
-It is very common in these sections to see code in peculiar boxes to help them stand out. Check the markdown section of the Project Specifications to see how to add more / customize these.
-
-```python
-def code_highlight_example(m: int, m: float, s: str) -> str:
-	return s + str(n*m)
-```
-
-```java
-public static void main(String[] args){
-	System.out.println("Hello, World!");
-}
-```
-
-```c#
-static void Main(){
-	Console.WriteLine("Hello, World!");
-}
-```
+type "cd home-page" in VSCode terminal then type "npm install vite" then type "npm run dev" you should then be able to run the frontend to run the backend click the "+" icon to open a new terminal while your frontend is still running run: "docker-compose down",
+"docker-compose up -d","docker-compose exec backend python manage.py migrate", "docker-compose up". After running that go back you your frontend and now the backend and frontend should be properly working
