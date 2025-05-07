@@ -1,0 +1,171 @@
+body {
+    max-height: 100vh;
+    overflow: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.game-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+#panor {
+    flex: 1;
+    width: 80%;
+    position: relative;
+}
+
+#game-view{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    flex: 1;
+    height: 0;
+}
+  
+.gm-iv-address {
+display: none;
+}
+
+#map {
+    position: absolute;
+    top: 60%;
+    left: 73%;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    text-align: center;
+    line-height: 30px;
+    padding-left: 10px;
+    height: 35%;
+    width: 25%;
+}
+
+#answer-container{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 150px;
+    background: #000000;
+    padding: 3%;
+    flex-direction: column;
+}
+
+#answer-choice{
+    width: 120%; 
+    height: fit-content;
+    padding: 5px 5px;
+    border-radius: 10px; 
+    background: white; 
+    color: black; 
+    font-size: 22px; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#instructions{
+    color:#fff;
+    padding-bottom: 50px;
+}
+
+#game-header {
+    display: flex;
+    background-color: #000000;
+    color: white;
+    padding: 1rem 2rem;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#game-title p, #game-title a{
+    margin: 0;
+    color: white;
+    text-decoration: none;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+
+#continue {
+
+    padding: 5px 5px;
+    border-radius: 10px; 
+    background-color: white; 
+    color: black; 
+    font-size: 22px; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#score {
+    text-align: center;
+    position: fixed;
+    left: 45%;
+    color: white;
+    font-size: 18px;
+    flex-grow: 1;
+}
+
+#gameend-header-easy{
+    display: none;
+    width: fit-content;
+    padding: 30px 60px;
+    height: 100px;
+    border-radius: 15px;
+    font-size: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    font-family: sans-serif;
+    position: relative;
+    z-index: 2;
+    left: 35%;
+    top: 35%;
+}
+
+#end-score{
+    color:#fff;
+}
+
+#button-container {
+    display: flex;
+    padding-top: 20px;
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+
+#back{
+    position: relative;
+    justify-content: center; 
+    align-items: center; 
+    width: fit-content; 
+    padding: 5px 5px;
+    border-radius: 10px; 
+    background-color: white; 
+    color: black;
+    text-decoration: none; 
+    font-size: 22px; 
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#try-again{
+    position: relative;
+    justify-content: center; 
+    align-items: center; 
+    width: fit-content; 
+    padding: 5px 5px;
+    border-radius: 10px; 
+    background-color: white; 
+    color: black;
+    text-decoration: none; 
+    font-size: 22px; 
+    font-weight: bold;
+    cursor: pointer;
+}

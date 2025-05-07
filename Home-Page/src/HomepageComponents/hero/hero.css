@@ -1,0 +1,55 @@
+.hero{
+    margin: 0px 120px;
+    margin-top: 270px;
+    position: relative;
+    z-index: 1;
+}
+
+.hero-text {
+  color: white;
+  font-size: clamp(50px, 10vw, 110px); /* Clamp used to adjust maximum font size */
+  font-weight: 500;
+  line-height: 1.1; /* Adjust line-height for better readability */
+  position: fixed; /* Fixed position so it doesn't move */
+  left: 50px; /* Keep the text 50px from the left side */
+  top: 50%; /* Position it in the middle vertically */
+  transform: translateY(-50%); /* Center the text vertically */
+  text-align: left; /* Left-align the text */
+  z-index: 10; /* Ensure the text appears above the background animation */
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Add shadow for contrast */
+  max-width: 90%; /* Prevent the text from becoming too wide */
+  min-width: 300px; /* Minimum width to avoid shrinking too much */
+  word-wrap: break-word; /* Ensure long words break and don't overflow */
+  overflow: visible; /* Ensure text doesn’t overflow */
+}
+
+
+
+.hero-play-text {
+    display: flex;
+    position: fixed;
+    bottom: 50px;
+    left: 47%;
+    justify-content: center; /* Center the text horizontally */
+    align-items: center; /* Center the text vertically */
+    width: fit-content; /* Adjust width to fit content */
+    margin: 70px auto 0; /* Center the element horizontally with margin */
+    padding: 10px 20px; /* Add padding for better clickability */
+    border-radius: 10px; /* Slightly rounded corners */
+    background-color: white; /* White background */
+    color: black; /* Black text color */
+    font-size: 24px; /* Larger font size */
+    font-weight: bold; /* Bold text */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: all 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .hero-play-text:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+    transform: scale(1.05); /* Slightly enlarge the text on hover */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on hover */
+  }
+  
+  .hero-play-text:active {
+    transform: scale(0.95); /* Slightly shrink the text on click */
+  }

@@ -1,0 +1,4 @@
+/* street-view-container to remove color inversion */
+.street-view-container {
+  filter: invert(0) !important; /* Reset any color inversion */
+}
