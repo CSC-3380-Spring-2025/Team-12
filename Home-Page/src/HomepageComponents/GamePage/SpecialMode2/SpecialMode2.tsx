@@ -111,7 +111,7 @@ const NoPanMode = () => {
             }
         );
         
-        const map = new google.maps.Map(document.getElementById("map") as HTMLElement, {
+        const map = new google.maps.Map(document.getElementById("map2") as HTMLElement, {
             center: {lat: 0, lng: 0},
             zoom: 1,
             minZoom: 1,
