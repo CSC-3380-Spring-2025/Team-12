@@ -7,6 +7,22 @@ const GamePage = () => {
   const navigate = useNavigate();
   const { username } = useAuth();
 
+  const handleRandomClick = () => {
+    const gameModes = [
+      "/game/easy",         
+     "/game/MediumMode", 
+      "/game/HardMode",     
+      "/game/special1",     
+      "/game/NoPanMode"     
+    ];
+    const randomMode = gameModes[Math.floor(Math.random() * gameModes.length)];
+    if (randomMode.endsWith(".html")) {
+      window.location.href = randomMode;
+    } else {
+      navigate(randomMode);
+    }
+  };
+
   return (
     <div className="game-page">
       {/* Black Header */}
@@ -20,7 +36,12 @@ const GamePage = () => {
             >
               HOME
             </div>
-            <div className="game-nav-text">PLAY WITH FRIENDS</div>
+            <div
+              className="game-nav-text"
+              onClick={handleRandomClick}
+            >
+              Random
+            </div>
             <div className="player-info">
               <span className="player-label">PLAYER:</span>
               <span className="player-name">{username || 'Guest'}</span>
@@ -56,7 +77,10 @@ const GamePage = () => {
         <div className="game-content">
           <div className="game-boxes">
             <div className="game-box-row">
-              <div className="game-box-small">EASY MODE</div>
+            <div className="game-box-small"
+                onClick={() => navigate("/game/easy")}>
+                EASY MODE
+              </div>
               <div className="game-box-small"
                 onClick={() => navigate("/game/MediumMode")}>
                 MEDIUM MODE</div>
