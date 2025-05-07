@@ -14,6 +14,7 @@ import HardMode from "./HomepageComponents/GamePage/HardMode/HardMode";
 import MediumMode from "./HomepageComponents/GamePage/MediumMode/MediumMode";
 import SpecialMode2 from "./HomepageComponents/GamePage/SpecialMode2/SpecialMode2";
 import Lsu from "./HomepageComponents/GamePage/LsuMode/LsuMode";
+import Easy from "./HomepageComponents/GamePage/EasyMode/EasyMode";
 
 interface HeroData {
   text1: string;
@@ -66,9 +67,8 @@ function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/map" element={<GhostTownMap />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
-        <Route path="/medium" element={<Medium />} />
-        <Route path="/easy" element={<Easy />} />
-        <Route path="/lsu" element={<Lsu />} />
+        <Route path="/game/EasyMode" element={<Easy />} />
+        <Route path="/game/lsu" element={<Lsu />} />
       </Routes>
     </div>
   );

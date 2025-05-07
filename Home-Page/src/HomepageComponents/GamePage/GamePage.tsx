@@ -78,7 +78,7 @@ const GamePage = () => {
           <div className="game-boxes">
             <div className="game-box-row">
             <div className="game-box-small"
-                onClick={() => navigate("/game/easy")}>
+                onClick={() => navigate("/game/EasyMode")}>
                 EASY MODE
               </div>
               <div className="game-box-small"
@@ -90,7 +90,7 @@ const GamePage = () => {
             </div>
             <div className="game-box-row">
               <div className="game-box-large"
-              onClick={() => navigate("/lsu")}>SPECIAL MODES</div>
+              onClick={() => navigate("/game/lsu")}>SPECIAL MODES</div>
               <div className="game-box-large"
               onClick={() => navigate("/game/NoPanMode")}>
                 NO PAN MODE</div>
