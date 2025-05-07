@@ -8,48 +8,39 @@ Quality Assurance Tester: Layla Jones (ljon188)
 
 # About Our Software
 
-Describe a little about what the project is about here.
+Ghost Town GeoGuessr website is a spooky twist on the classic Google GeoGuessr game. It is a map based guessing game of haunted abaonded locations around the world
 ## Platforms Tested on
 - MacOS
-- Android
-- iOS
-- Linux
 - Windows
 # Important Links
-Kanban Board: [link]\
-Designs: [link]\
+Kanban Board: https://github.com/orgs/CSC-3380-Spring-2025/projects/12
+Designs: [link]\ 
 Styles Guide(s): [link]
 
 # How to Run Dev and Test Environment
+npm install vite 
+npm install --save-dev typescript
+npm run dev
+
+docker-compose down
+docker-compose up -d
+docker-compose exec backend python manage.py makemigrations
+docker-compose exec backend python manage.py migrate
+docker-compose up 
 
 ## Dependencies
 - List all dependencies here
 - Don't forget to include versions
 ### Downloading Dependencies
-Describe where to download the dependencies here. Some will likely require a web download. Provide links here. For IDE extensions, make sure your project works with the free version of them, and detail which IDE(s) these are available in. 
+https://react.dev
+https://www.docker.com
 
 ## Commands
 Describe how the commands and process to launch the project on the main branch in such a way that anyone working on the project knows how to check the affects of any code they add.
 
-```sh
-Example terminal command syntax
-```
+In the terminal preferably VSCode run "npm install vite"
+after running that run "npm install --save-dev typescript" next run "npm run dev" now you should be able to run the frontend 
 
-It is very common in these sections to see code in peculiar boxes to help them stand out. Check the markdown section of the Project Specifications to see how to add more / customize these.
+To run the backend click the "+" to open a new terminal while the frontend is still running run in the new terminal you created run "docker-compose down" then run "docker-compose up -d" then run "docker-compose exec backend python manage.py makemigrations" and then run "docker-compose exec backend python manage.py migrate" and lastely run "docker-compose up"
 
-```python
-def code_highlight_example(m: int, m: float, s: str) -> str:
-	return s + str(n*m)
-```
-
-```java
-public static void main(String[] args){
-	System.out.println("Hello, World!");
-}
-```
-
-```c#
-static void Main(){
-	Console.WriteLine("Hello, World!");
-}
-```
+Now go back yo your terminal with the frontend and click the link and both the frontend and backend should be working
