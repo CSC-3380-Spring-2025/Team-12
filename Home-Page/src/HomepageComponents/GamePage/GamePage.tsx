@@ -9,10 +9,10 @@ const GamePage = () => {
 
   const handleRandomClick = () => {
     const gameModes = [
-      "/game/easy",         
+      "/game/EasyMode",         
      "/game/MediumMode", 
       "/game/HardMode",     
-      "/game/special1",     
+      "/game/lsu",     
       "/game/NoPanMode"     
     ];
     const randomMode = gameModes[Math.floor(Math.random() * gameModes.length)];
