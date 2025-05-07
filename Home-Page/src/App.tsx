@@ -10,8 +10,9 @@ import ResetPassword from "./HomepageComponents/forgotPassword/ResetPassword";
 import Explore from "./HomepageComponents/Explore/Explore";
 import Leaderboard from "./HomepageComponents/Leaderboard/Leaderboard";
 import GhostTownMap from "./HomepageComponents/Explore/GhostTownMap";
-import Medium from "./HomepageComponents/GamePage/MediumMode/MediumMode";
-import Easy from "./HomepageComponents/GamePage/EasyMode/EasyMode";
+import HardMode from "./HomepageComponents/GamePage/HardMode/HardMode";
+import MediumMode from "./HomepageComponents/GamePage/MediumMode/MediumMode";
+import SpecialMode2 from "./HomepageComponents/GamePage/SpecialMode2/SpecialMode2";
 import Lsu from "./HomepageComponents/GamePage/LsuMode/LsuMode";
 
 interface HeroData {
@@ -57,7 +58,9 @@ function App() {
           }
         />
         <Route path="/game" element={<GamePage />} />
-        <Route path="/game-medium" element={<a href="./game-medium.html" target="_blank">Open HTML Page</a>} />
+        <Route path="/game/MediumMode" element={<MediumMode />} />
+        <Route path="/game/HardMode" element={<HardMode />} /> 
+        <Route path="/game/NoPanMode" element={<SpecialMode2 />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/reset-password/:uidb64/:token" element={<ResetPassword />} />
         <Route path="/explore" element={<Explore />} />

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./MediumMode.css";
+import "./SpecialMode2.css";
 
 declare global {
     interface Window {
@@ -8,8 +8,10 @@ declare global {
     }
 }
 
-const Medium = () => {
+const NoPanMode = () => {
     const navigate = useNavigate();
+
+    const [imageUrl, setImageUrl] = useState<string>("");
 
     useEffect(() => {
         if (!(window as any).google) {
@@ -88,18 +90,24 @@ const Medium = () => {
         if (buttonElement) {
             (buttonElement as HTMLElement).style.display = "none";
         } //makes continue button invisible
+
+        const heading = 105;
+        const pitch = 10;
+        const fov = 90;
+        const size = "1920x1080"; // unfortuantely image only renders at 640x640 bc of free api limit
+
+        const newImageUrl = `https://maps.googleapis.com/maps/api/streetview?size=${size}&location=${currentCoords.lat},${currentCoords.lng}&fov=${fov}&heading=${heading}&pitch=${pitch}&key=AIzaSyCgi17uXKvtR8TOwZYq99xZwERDq--R088`;
+        setImageUrl(newImageUrl);
+
         
         const panorama = new google.maps.StreetViewPanorama(
             document.getElementById("pano") as HTMLElement, {
                 position: currentCoords,
                 pov: {
-                    heading: 34,
+                    heading: 105,
                     pitch: 10,
                 },
-                panControl: false,
-                linksControl: false,
-                showRoadLabels: false,
-                fullscreenControl: false,
+                visible: false,
             }
         );
         
@@ -120,19 +128,8 @@ const Medium = () => {
             },
         });
         
-        console.log("Panorama object:", panorama);
-        console.log("Map object:", map);
 
         const windowLatLng = new google.maps.LatLng(0, 0);
-
-        const infoWindow = new google.maps.InfoWindow({
-            position: windowLatLng,
-            content: "Look around and double click to make your guess",
-        });
-
-        if (round == 0){ // only show up on first round
-            infoWindow.open(map);
-        }
 
         // listener for user answer, and handling what happens next
         map.addListener("dblclick", (mapsMouseEvent: google.maps.MapMouseEvent) => {
@@ -188,8 +185,6 @@ const Medium = () => {
 
                 return total;
             }
-
-            infoWindow.close();
 
             // line from guess to location
             let lineCoordinates = [
@@ -247,7 +242,11 @@ const Medium = () => {
         <div id="button">Continue</div>
       </div>
         <div id="pano">
-            <div id="gameend-header">
+            <img src={imageUrl} alt="" />
+            <div id="instructions">Take a look at the image and double click on the map when you're ready!</div>
+        </div>
+        <div id="map2"></div>
+        <div id="gameend-header">
                 <div id="end-score">Congrats! You got a score of: 0</div>
                 <div id="button-container">
                     <div id="back" onClick={() => navigate("/game")}>
@@ -258,8 +257,6 @@ const Medium = () => {
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="map"></div>
         <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCgi17uXKvtR8TOwZYq99xZwERDq--R088&callback=initialize&v=weekly"
             defer
@@ -268,4 +265,4 @@ const Medium = () => {
   );
 };
 
-export default Medium;
+export default NoPanMode;

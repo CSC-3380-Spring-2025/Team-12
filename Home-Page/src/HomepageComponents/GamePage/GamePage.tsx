@@ -14,7 +14,7 @@ const GamePage = () => {
         <h1 className="game-title">GeoGuessr</h1>
         <div className="game-nav-container">
           <div className="game-nav-columns">
-            <div 
+            <div
               className="game-nav-text"
               onClick={() => navigate("/")}
             >
@@ -33,14 +33,19 @@ const GamePage = () => {
       <div className="game-layout">
         <div className="game-sidebar">
           <nav className="sidebar-nav">
-            <div 
+            <div
               className="sidebar-nav-text"
               onClick={() => navigate("/chat")}
             >
               CHAT
             </div>
-            <div className="sidebar-nav-text">LEADERBOARD</div>
-            <div 
+            <div
+              className="sidebar-nav-text"
+              onClick={() => navigate("/leaderboard")}
+            >
+              LEADERBOARD
+            </div>
+            <div
               className="sidebar-nav-text"
               onClick={() => navigate("/explore")}
             >
@@ -54,15 +59,18 @@ const GamePage = () => {
               <div className="game-box-small" onClick={() => navigate("/easy")}>
               EASY MODE</div>
               <div className="game-box-small"
-                onClick={() => navigate("/medium")}>
+                onClick={() => navigate("/game/MediumMode")}>
                 MEDIUM MODE</div>
-              <div className="game-box-small">HARD MODE</div>
+              <div className="game-box-small"
+              onClick={() => navigate("/game/HardMode")}>
+                HARD MODE</div>
             </div>
             <div className="game-box-row">
               <div className="game-box-large"
-              onClick={() => navigate("/lsu")}
-              >SPECIAL MODES</div>
-              <div className="game-box-large">SPECIAL MODES</div>
+              onClick={() => navigate("/lsu")}>SPECIAL MODES</div>
+              <div className="game-box-large"
+              onClick={() => navigate("/game/NoPanMode")}>
+                NO PAN MODE</div>
             </div>
           </div>
         </div>
