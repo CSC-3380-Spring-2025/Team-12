@@ -85,4 +85,5 @@ Make sure the following tools are installed:
 - [Docker Installation Guide](https://docs.docker.com/get-started/get-docker/)  
 - [React Installation Guide](https://react.dev/learn/installation)  
 - [Django Documentation](https://www.djangoproject.com)
+- [Python Installation](https://www.python.org)
 
